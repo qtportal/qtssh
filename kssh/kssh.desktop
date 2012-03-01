@@ -1,0 +1,14 @@
+# KDE Config File  
+[Desktop Entry]
+Type=Application
+Exec=kssh -caption "%c" %i %m  
+Icon=kssh.png
+MiniIcon=kssh.png
+DocPath=kssh/index.html
+Comment=A Secure Shell front-end
+Comment[it]=Un front-end per Secure Shell
+GenericName=Secure Shell front-end
+GenericName[it]=Front-end per Secure Shell
+Terminal=0
+Name=KSSH
+Name[it]=KSSH

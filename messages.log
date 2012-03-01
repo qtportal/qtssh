@@ -1,0 +1,5 @@
+./kssh has *.rc or *.ui files, but not correct messages line
+gmake[2]: Entering directory `/home/bilibao/kssh/kssh'
+/opt/kde3/include/kde.pot: warning: Charset "CHARSET" is not a portable encoding name.
+                                    Message conversion to user's charset might not work.
+gmake[2]: Leaving directory `/home/bilibao/kssh/kssh'

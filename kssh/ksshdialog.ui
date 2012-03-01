@@ -1,0 +1,1355 @@
+<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<class>KSSHDialog</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>KSSHDialog</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>612</width>
+            <height>786</height>
+        </rect>
+    </property>
+    <property name="sizePolicy">
+        <sizepolicy>
+            <hsizetype>1</hsizetype>
+            <vsizetype>1</vsizetype>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+    </property>
+    <property name="caption">
+        <string>kssh</string>
+    </property>
+    <property name="layoutMargin" stdset="0">
+    </property>
+    <property name="layoutSpacing" stdset="0">
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>5</number>
+        </property>
+        <property name="spacing">
+            <number>6</number>
+        </property>
+        <widget class="QGroupBox" row="2" column="0">
+            <property name="name">
+                <cstring>optionsGB</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>1</hsizetype>
+                    <vsizetype>1</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="title">
+                <string>SSH options:</string>
+            </property>
+            <property name="layoutMargin" stdset="0">
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <property name="margin">
+                    <number>2</number>
+                </property>
+                <property name="spacing">
+                    <number>6</number>
+                </property>
+                <widget class="QCheckBox" row="4" column="0">
+                    <property name="name">
+                        <cstring>PCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>non privileged port (-P)</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>&lt;qt&gt;&lt;b&gt; -P&lt;/b&gt;&lt;br&gt;      Use a non-privileged port for outgoing connections.  This can be used if a firewall does not permit connections from privileged
+ ports.  Note that this option turns off &lt;i&gt;RhostsAuthentication&lt;/i&gt; and
+&lt;i&gt;RhostsRSAAuthentication&lt;/i&gt; for older servers.&lt;/qt&gt;</string>
+                    </property>
+                </widget>
+                <widget class="QLayoutWidget" row="1" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>Layout1</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <property name="margin">
+                            <number>0</number>
+                        </property>
+                        <property name="spacing">
+                            <number>6</number>
+                        </property>
+                        <widget class="QCheckBox">
+                            <property name="name">
+                                <cstring>pCB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Specifiy port (-p nn):</string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt; -p port&lt;/b&gt;&lt;br&gt;
+ Port to connect to on the remote host.  This can be specified on  a per-host basis in the configuration file.&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                        <widget class="QSpinBox">
+                            <property name="name">
+                                <cstring>portSB</cstring>
+                            </property>
+                            <property name="enabled">
+                                <bool>false</bool>
+                            </property>
+                            <property name="maxValue">
+                                <number>65535</number>
+                            </property>
+                            <property name="minValue">
+                                <number>1</number>
+                            </property>
+                            <property name="value">
+                                <number>22</number>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt; -p port&lt;/b&gt;&lt;br&gt;
+ Port to connect to on the remote host.  This can be specified on  a per-host basis in the configuration file.&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QLayoutWidget" row="2" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>Layout2</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <property name="margin">
+                            <number>0</number>
+                        </property>
+                        <property name="spacing">
+                            <number>6</number>
+                        </property>
+                        <widget class="QCheckBox">
+                            <property name="name">
+                                <cstring>LCB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Forward local (-L p:h:p):</string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt;-L port:host:hostport&lt;/b&gt;&lt;br&gt;
+Specifies that the given port on the local (client) host is to be
+forwarded to the given host and port on the remote side.  This
+works by allocating a socket to listen to port on the local side,
+and whenever a connection is made to this port, the connection is
+forwarded over the secure channel, and a connection is made to
+host port hostport from the remote machine.  Port forwardings can
+also be specified in the configuration file.  Only root can for­
+ward privileged ports.  IPv6 addresses can be specified with an
+alternative syntax: port/host/hostport&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                        <widget class="QLineEdit">
+                            <property name="name">
+                                <cstring>LLE</cstring>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt;-L port:host:hostport&lt;/b&gt;&lt;br&gt;
+Specifies that the given port on the local (client) host is to be
+forwarded to the given host and port on the remote side.  This
+works by allocating a socket to listen to port on the local side,
+and whenever a connection is made to this port, the connection is
+forwarded over the secure channel, and a connection is made to
+host port hostport from the remote machine.  Port forwardings can
+also be specified in the configuration file.  Only root can for­
+ward privileged ports.  IPv6 addresses can be specified with an
+alternative syntax: port/host/hostport&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QLayoutWidget" row="3" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>Layout3</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <property name="margin">
+                            <number>0</number>
+                        </property>
+                        <property name="spacing">
+                            <number>6</number>
+                        </property>
+                        <widget class="QCheckBox">
+                            <property name="name">
+                                <cstring>RCB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Forward Remote (-R p:h:p):</string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt;-R port:host:hostport&lt;/b&gt;&lt;br&gt;
+Specifies that the given port on the remote (server) host is to
+be forwarded to the given host and port on the local side.  This
+works by allocating a socket to listen to port on the remote
+side, and whenever a connection is made to this port, the connection is forwarded over the secure channel, and a connection is made to host port hostport from the local machine.  Port forward­ings can also be specified in the configuration file.  Privileged ports can be forwarded only when logging in as root on the remote      machine.  IPv6 addresses can be specified with an alternative            syntax: port/host/hostport&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                        <widget class="QLineEdit">
+                            <property name="name">
+                                <cstring>RLE</cstring>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt;-R port:host:hostport&lt;/b&gt;&lt;br&gt;
+Specifies that the given port on the remote (server) host is to
+be forwarded to the given host and port on the local side.  This
+works by allocating a socket to listen to port on the remote
+side, and whenever a connection is made to this port, the connection is forwarded over the secure channel, and a connection is made to host port hostport from the local machine.  Port forward­ings can also be specified in the configuration file.  Privileged ports can be forwarded only when logging in as root on the remote      machine.  IPv6 addresses can be specified with an alternative            syntax: port/host/hostport&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QLayoutWidget" row="5" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>Layout4</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <property name="margin">
+                            <number>0</number>
+                        </property>
+                        <property name="spacing">
+                            <number>6</number>
+                        </property>
+                        <widget class="QCheckBox">
+                            <property name="name">
+                                <cstring>ssh1CB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Try to use ssh1 (-1) </string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt;-1&lt;/b&gt;&lt;br&gt;      Forces ssh to try protocol version 1 only.&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                        <widget class="QCheckBox">
+                            <property name="name">
+                                <cstring>ssh2CB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Try to use ssh2 (-2) </string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt;-2&lt;/b&gt;&lt;br&gt;      Forces ssh to try protocol version 2 only.&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QLayoutWidget" row="0" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>Layout7</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <property name="margin">
+                            <number>0</number>
+                        </property>
+                        <property name="spacing">
+                            <number>6</number>
+                        </property>
+                        <widget class="QCheckBox">
+                            <property name="name">
+                                <cstring>XCB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Enable X11 (-X)</string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt;-X&lt;/b&gt;&lt;br&gt; Enables X11 forwarding.  This can also be specified on a per-host basis in a configuration file.&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                        <widget class="QCheckBox">
+                            <property name="name">
+                                <cstring>xCB</cstring>
+                            </property>
+                            <property name="sizePolicy">
+                                <sizepolicy>
+                                    <hsizetype>1</hsizetype>
+                                    <vsizetype>1</vsizetype>
+                                    <horstretch>0</horstretch>
+                                    <verstretch>0</verstretch>
+                                </sizepolicy>
+                            </property>
+                            <property name="text">
+                                <string>Disable X11 (-x)</string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt;  -x&lt;/b&gt;&lt;br&gt;      Disables X11 forwarding.&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QLayoutWidget" row="8" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>Layout6</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <property name="margin">
+                            <number>0</number>
+                        </property>
+                        <property name="spacing">
+                            <number>6</number>
+                        </property>
+                        <widget class="QCheckBox">
+                            <property name="name">
+                                <cstring>cCB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Cipher to use (-c cipher):</string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt;-c blowfish|3des|des&lt;/b&gt;&lt;br&gt;        Selects the cipher to use for encrypting the session.  3des is used by default.  It is believed to be secure.  3des (triple-des) is an encrypt-decrypt-encrypt triple with three different keys. blowfish is a fast block cipher, it appears very secure and is much faster than 3des.  des is only supported in the ssh client for interoperability with legacy protocol 1 implementations that
+do not support the 3des cipher.  Its use is strongly discouraged
+due to cryptographic weaknesses.&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                        <widget class="QComboBox">
+                            <item>
+                                <property name="text">
+                                    <string>3des</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>blowfish</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>des</string>
+                                </property>
+                            </item>
+                            <property name="name">
+                                <cstring>ccCB</cstring>
+                            </property>
+                            <property name="enabled">
+                                <bool>false</bool>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QCheckBox" row="9" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>CCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Compression of all data (-C)</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>&lt;qt&gt;&lt;b&gt; -C&lt;/b&gt;&lt;br&gt;      Requests compression of all data (including stdin, stdout,
+stderr, and data for forwarded X11 and TCP/IP connections).  The
+compression algorithm is the same used by gzip, and the
+``level'' can be controlled by the CompressionLevel option (see
+man:/ssh).  Compression is desirable on modem lines and other slow
+connections, but will only slow down things on fast networks. The default value can be set on a host-by-host basis in the configuration files; see the Compression option in man:/ssh.</string>
+                    </property>
+                </widget>
+                <widget class="QLayoutWidget" row="16" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>Layout9</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <property name="margin">
+                            <number>0</number>
+                        </property>
+                        <property name="spacing">
+                            <number>6</number>
+                        </property>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>savePB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Save as default configuration</string>
+                            </property>
+                        </widget>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>morePB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>More...</string>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QCheckBox" row="15" column="0">
+                    <property name="name">
+                        <cstring>saveCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Save this connection</string>
+                    </property>
+                    <property name="checked">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+                <widget class="QPushButton" row="15" column="1">
+                    <property name="name">
+                        <cstring>aboutPB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>About kssh...</string>
+                    </property>
+                </widget>
+                <widget class="Line" row="14" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>Line1</cstring>
+                    </property>
+                    <property name="frameShape" stdset="0">
+                        <enum>HLine</enum>
+                    </property>
+                    <property name="frameShadow">
+                        <enum>Sunken</enum>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                </widget>
+                <widget class="KLineEdit" row="13" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>commandLE</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>1</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="12" column="0">
+                    <property name="name">
+                        <cstring>TextLabel3</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Execute command:</string>
+                    </property>
+                </widget>
+                <widget class="QLayoutWidget" row="11" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>Layout20</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <property name="margin">
+                            <number>0</number>
+                        </property>
+                        <property name="spacing">
+                            <number>6</number>
+                        </property>
+                        <widget class="QCheckBox">
+                            <property name="name">
+                                <cstring>IPV4CB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Force IPv4 (-4)</string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt; -4&lt;/b&gt;&lt;br&gt;  Forces ssh to use IPv4 addresses only.&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                        <widget class="QCheckBox">
+                            <property name="name">
+                                <cstring>IPV6CB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Force IPv6 (-6)</string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt; -6&lt;/b&gt;&lt;br&gt;  Forces ssh to use IPv6 addresses only.&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QCheckBox" row="6" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>aCB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Disable auth agent forwarding (-a)</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>&lt;qt&gt;&lt;b&gt;-a&lt;/b&gt;&lt;br&gt;      Disables forwarding of the authentication agent connection.&lt;/qt&gt;</string>
+                    </property>
+                </widget>
+                <widget class="QLayoutWidget" row="10" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>Layout24</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <property name="margin">
+                            <number>0</number>
+                        </property>
+                        <property name="spacing">
+                            <number>6</number>
+                        </property>
+                        <widget class="QCheckBox">
+                            <property name="name">
+                                <cstring>FCB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Config file (-F):</string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt; -F configfile&lt;/b&gt;&lt;br&gt;     Specifies an alternative per-user configuration file.  If a configuration file is given on the command line, the system-wide
+configuration file (/etc/ssh/ssh_config) will be ignored.  The
+default for the per-user configuration file is $HOME/.ssh/config.&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                        <widget class="KURLRequester">
+                            <property name="name">
+                                <cstring>FLE</cstring>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QFrame" row="0" column="2" rowspan="17" colspan="1">
+                    <property name="name">
+                        <cstring>moreF</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>5</hsizetype>
+                            <vsizetype>7</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="frameShape">
+                        <enum>NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                        <enum>Plain</enum>
+                    </property>
+                    <property name="layoutMargin" stdset="0">
+                    </property>
+                    <grid>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <property name="margin">
+                            <number>0</number>
+                        </property>
+                        <property name="spacing">
+                            <number>6</number>
+                        </property>
+                        <widget class="QLayoutWidget" row="0" column="0">
+                            <property name="name">
+                                <cstring>Layout5</cstring>
+                            </property>
+                            <hbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <property name="margin">
+                                    <number>0</number>
+                                </property>
+                                <property name="spacing">
+                                    <number>6</number>
+                                </property>
+                                <widget class="QCheckBox">
+                                    <property name="name">
+                                        <cstring>bCB</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>Bind address (-b address):</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>&lt;qt&gt;&lt;b&gt;-b bind_address&lt;/b&gt; &lt;br&gt;Specify the interface to transmit from on machines with multiple interfaces or aliased addresses.&lt;/qt&gt;</string>
+                                    </property>
+                                </widget>
+                                <widget class="QLineEdit">
+                                    <property name="name">
+                                        <cstring>bLE</cstring>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>&lt;qt&gt;&lt;b&gt;-b bind_address&lt;/b&gt; &lt;br&gt;Specify the interface to transmit from on machines with multiple interfaces or aliased addresses.&lt;/qt&gt;</string>
+                                    </property>
+                                </widget>
+                            </hbox>
+                        </widget>
+                        <widget class="QLayoutWidget" row="1" column="0">
+                            <property name="name">
+                                <cstring>layyyy</cstring>
+                            </property>
+                            <hbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <property name="margin">
+                                    <number>0</number>
+                                </property>
+                                <property name="spacing">
+                                    <number>6</number>
+                                </property>
+                                <widget class="QCheckBox">
+                                    <property name="name">
+                                        <cstring>c1CB</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>Cipher to use (-c list):</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>&lt;qt&gt;&lt;b&gt;-c cipher_spec&lt;/b&gt;&lt;br&gt;   Additionally, for protocol version 2 a comma-separated list of ciphers can be specified in order of preference. See man:/ssh, Ciphers dor more info.&lt;/qt&gt;</string>
+                                    </property>
+                                </widget>
+                                <widget class="QLineEdit">
+                                    <property name="name">
+                                        <cstring>cLE</cstring>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>&lt;qt&gt;&lt;b&gt;-c cipher_spec&lt;/b&gt;&lt;br&gt;   Additionally, for protocol version 2 a comma-separated list of ciphers can be specified in order of preference. See man:/ssh, Ciphers dor more info.&lt;/qt&gt;</string>
+                                    </property>
+                                </widget>
+                            </hbox>
+                        </widget>
+                        <widget class="QLayoutWidget" row="2" column="0">
+                            <property name="name">
+                                <cstring>Layout12</cstring>
+                            </property>
+                            <hbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <property name="margin">
+                                    <number>0</number>
+                                </property>
+                                <property name="spacing">
+                                    <number>6</number>
+                                </property>
+                                <widget class="QCheckBox">
+                                    <property name="name">
+                                        <cstring>eCB</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>Escape character (-e):</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>&lt;qt&gt;&lt;b&gt; -e ch|^ch|none  &lt;/b&gt; &lt;br&gt;   Sets the escape character for sessions with a pty (default: `~').The escape character is only recognized at the beginning of a line.  The escape character followed by a dot (`.') closes the connection, followed by control-Z suspends the connection, and followed by itself sends the escape character once.  Setting the character to ``none'' disables any escapes and makes the session fully transparent.&lt;/qt&gt;</string>
+                                    </property>
+                                </widget>
+                                <widget class="QLineEdit">
+                                    <property name="name">
+                                        <cstring>eLE</cstring>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>&lt;qt&gt;&lt;b&gt; -e ch|^ch|none  &lt;/b&gt; &lt;br&gt;   Sets the escape character for sessions with a pty (default: `~').The escape character is only recognized at the beginning of a line.  The escape character followed by a dot (`.') closes the connection, followed by control-Z suspends the connection, and followed by itself sends the escape character once.  Setting the character to ``none'' disables any escapes and makes the session fully transparent.&lt;/qt&gt;</string>
+                                    </property>
+                                </widget>
+                            </hbox>
+                        </widget>
+                        <widget class="QLayoutWidget" row="8" column="0">
+                            <property name="name">
+                                <cstring>Layout13</cstring>
+                            </property>
+                            <hbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <property name="margin">
+                                    <number>0</number>
+                                </property>
+                                <property name="spacing">
+                                    <number>6</number>
+                                </property>
+                                <widget class="QCheckBox">
+                                    <property name="name">
+                                        <cstring>mCB</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>Mac spec (-m):</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>&lt;qt&gt;&lt;b&gt;-m mac_spec&lt;/b&gt;&lt;br&gt;Additionally, for protocol version 2 a comma-separated list of MAC (message authentication code) algorithms can be specified in  order of preference.  See &lt;a href="man:/ssh"&gt;man:/ssh&lt;/a&gt;, MACs keyword for more information.&lt;/qt&gt;</string>
+                                    </property>
+                                </widget>
+                                <widget class="QLineEdit">
+                                    <property name="name">
+                                        <cstring>mLE</cstring>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>&lt;qt&gt;&lt;b&gt;-m mac_spec&lt;/b&gt;&lt;br&gt;Additionally, for protocol version 2 a comma-separated list of MAC (message authentication code) algorithms can be specified in  order of preference.  See &lt;a href="man:/ssh"&gt;man:/ssh&lt;/a&gt;, MACs keyword for more information.&lt;/qt&gt;</string>
+                                    </property>
+                                </widget>
+                            </hbox>
+                        </widget>
+                        <widget class="QLayoutWidget" row="12" column="0">
+                            <property name="name">
+                                <cstring>Layout16</cstring>
+                            </property>
+                            <hbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <property name="margin">
+                                    <number>0</number>
+                                </property>
+                                <property name="spacing">
+                                    <number>6</number>
+                                </property>
+                                <widget class="QCheckBox">
+                                    <property name="name">
+                                        <cstring>vCB</cstring>
+                                    </property>
+                                    <property name="sizePolicy">
+                                        <sizepolicy>
+                                            <hsizetype>3</hsizetype>
+                                            <vsizetype>0</vsizetype>
+                                            <horstretch>0</horstretch>
+                                            <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                    </property>
+                                    <property name="text">
+                                        <string>Verbose (-v,-vv,-vvv):</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string> &lt;qt&gt;&lt;b&gt;-v&lt;/b&gt;&lt;br&gt;      Verbose mode.  Causes ssh to print debugging messages about its progress.  This is helpful in debugging connection, authentica­tion, and configuration problems. Verbosity level 
+could be configured from 1 to 3 (3 is the maximum).&lt;/qt&gt;</string>
+                                    </property>
+                                </widget>
+                                <widget class="QSpinBox">
+                                    <property name="name">
+                                        <cstring>vSB</cstring>
+                                    </property>
+                                    <property name="enabled">
+                                        <bool>false</bool>
+                                    </property>
+                                    <property name="maxValue">
+                                        <number>3</number>
+                                    </property>
+                                    <property name="minValue">
+                                        <number>1</number>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>&lt;qt&gt;Verbosity level. 1=minimum, 2=medium,3=maximum (It means -v,-vv,-vvv on ssh command line)&lt;/qt&gt;</string>
+                                    </property>
+                                </widget>
+                            </hbox>
+                        </widget>
+                        <widget class="QLayoutWidget" row="14" column="0">
+                            <property name="name">
+                                <cstring>Layout15</cstring>
+                            </property>
+                            <hbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <property name="margin">
+                                    <number>0</number>
+                                </property>
+                                <property name="spacing">
+                                    <number>6</number>
+                                </property>
+                                <widget class="QCheckBox">
+                                    <property name="name">
+                                        <cstring>TCB</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>Disbale TTY (-T)</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>&lt;qt&gt;&lt;b&gt;-T&lt;/b&gt;&lt;br&gt;      Disable pseudo-tty allocation.&lt;/qt&gt;</string>
+                                    </property>
+                                </widget>
+                                <widget class="QCheckBox">
+                                    <property name="name">
+                                        <cstring>tCB</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>Force TTY (-t)</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>&lt;qt&gt;&lt;b&gt;-t&lt;/b&gt;&lt;br&gt;Force pseudo-tty allocation.  This can be used to execute arbitrary screen-based programs on a remote machine, which can be
+very useful, e.g., when implementing menu services.  Multiple -t options force tty allocation, even if ssh has no local tty.&lt;/qt&gt;</string>
+                                    </property>
+                                </widget>
+                            </hbox>
+                        </widget>
+                        <widget class="QCheckBox" row="13" column="0">
+                            <property name="name">
+                                <cstring>sCB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Subsystem (-s)</string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt; -s&lt;/b&gt;&lt;br&gt;      May be used to request invocation of a subsystem on the remote system. Subsystems are a feature of the SSH2 protocol which
+facilitate the use of SSH as a secure transport for other applications (&lt;i&gt;eg. sftp&lt;/i&gt;). The subsystem is specified as the remote command.&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                        <widget class="QLayoutWidget" row="15" column="0">
+                            <property name="name">
+                                <cstring>Layout17</cstring>
+                            </property>
+                            <hbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <property name="margin">
+                                    <number>0</number>
+                                </property>
+                                <property name="spacing">
+                                    <number>6</number>
+                                </property>
+                                <widget class="QCheckBox">
+                                    <property name="name">
+                                        <cstring>oCB</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>More option (-o):</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>&lt;qt&gt;&lt;b&gt;-o option&lt;/b&gt;&lt;br&gt;Can be used to give options in the format used in the configuration file.  This is useful for specifying options for which there is no separate command-line flag.&lt;/qt&gt;</string>
+                                    </property>
+                                </widget>
+                                <widget class="QLineEdit">
+                                    <property name="name">
+                                        <cstring>oLE</cstring>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>&lt;qt&gt;&lt;b&gt;-o option&lt;/b&gt;&lt;br&gt;Can be used to give options in the format used in the configuration file.  This is useful for specifying options for which there is no separate command-line flag.&lt;/qt&gt;</string>
+                                    </property>
+                                </widget>
+                            </hbox>
+                        </widget>
+                        <widget class="QCheckBox" row="9" column="0">
+                            <property name="name">
+                                <cstring>nCB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Redirect stdin from /dev/null (-n)</string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt;-n&lt;/b&gt; &lt;br&gt;Redirects stdin from &lt;tt&gt;/dev/null&lt;/tt&gt; (actually, prevents reading from stdin).  This must be used when ssh is run in the background.  A common trick is to use this to run X11 programs on a remote machine.  For example, ssh -n shadows.cs.hut.fi emacs &amp; will start an emacs on shadows.cs.hut.fi, and the X11 connection will be automatically forwarded over an encrypted channel.  The ssh  program will be put in the background.  (This does not work if ssh needs to ask for a password or passphrase; see also the -f option.)&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                        <widget class="QLayoutWidget" row="6" column="0">
+                            <property name="name">
+                                <cstring>Layout22</cstring>
+                            </property>
+                            <hbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <property name="margin">
+                                    <number>0</number>
+                                </property>
+                                <property name="spacing">
+                                    <number>6</number>
+                                </property>
+                                <widget class="QCheckBox">
+                                    <property name="name">
+                                        <cstring>ICB</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>SmartCard device (-I):</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>&lt;qt&gt;&lt;b&gt;-I smartcard_device&lt;/b&gt;&lt;br&gt; Specifies which smartcard device to use. The argument is the device ssh should use to communicate with a smartcard used for storing the user's private RSA key.&lt;/qt&gt;</string>
+                                    </property>
+                                </widget>
+                                <widget class="KURLRequester">
+                                    <property name="name">
+                                        <cstring>ILE</cstring>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>&lt;qt&gt;&lt;b&gt;-I smartcard_device&lt;/b&gt;&lt;br&gt; Specifies which smartcard device to use. The argument is the device ssh should use to communicate with a smartcard used for storing the user's private RSA key.&lt;/qt&gt;</string>
+                                    </property>
+                                </widget>
+                            </hbox>
+                        </widget>
+                        <widget class="QCheckBox" row="7" column="0">
+                            <property name="name">
+                                <cstring>kCB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Disable Kerberos forwarding (-k)</string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt; -k&lt;/b&gt;&lt;br&gt;Disables forwarding of Kerberos tickets and AFS tokens.  This may also be specified on a per-host basis in the configuration file.&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                        <widget class="QLayoutWidget" row="5" column="0">
+                            <property name="name">
+                                <cstring>Layout23</cstring>
+                            </property>
+                            <hbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <property name="margin">
+                                    <number>0</number>
+                                </property>
+                                <property name="spacing">
+                                    <number>6</number>
+                                </property>
+                                <widget class="QCheckBox">
+                                    <property name="name">
+                                        <cstring>iCB</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>Identity file (-i):</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>&lt;qt&gt;&lt;b&gt;-i identity_file&lt;/b&gt;&lt;br&gt;Selects a file from which the identity (private key) for  &lt;i&gt;RSA&lt;/i&gt; or &lt;i&gt;DSA&lt;/i&gt; authentication is read.  The default is $HOME/.ssh/identity for protocol version 1, and $HOME/.ssh/id_rsa and $HOME/.ssh/id_dsa for protocol version 2.  Identity files may also be specified on a per-host basis in the configuration file. It is possible to have multiple -i options (and multiple identities specified in configuration files).&lt;/qt&gt;</string>
+                                    </property>
+                                </widget>
+                                <widget class="KURLRequester">
+                                    <property name="name">
+                                        <cstring>iLE</cstring>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>&lt;qt&gt;&lt;b&gt; -e ch|^ch|none  &lt;/b&gt; &lt;br&gt;   Sets the escape character for sessions with a pty (default: `~').The escape character is only recognized at the beginning of a line.  The escape character followed by a dot (`.') closes the connection, followed by control-Z suspends the connection, and followed by itself sends the escape character once.  Setting the character to ``none'' disables any escapes and makes the session fully transparent.&lt;/qt&gt;</string>
+                                    </property>
+                                </widget>
+                            </hbox>
+                        </widget>
+                        <widget class="QCheckBox" row="4" column="0">
+                            <property name="name">
+                                <cstring>gCB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Allow remote connection (-g)</string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt; -g&lt;/b&gt;&lt;br&gt;      Allows remote hosts to connect to local forwarded ports.&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                        <widget class="QCheckBox" row="11" column="0">
+                            <property name="name">
+                                <cstring>qCB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Quiet mode (-q)</string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt; -q&lt;/b&gt;&lt;br&gt; Quiet mode.  Causes all warning and diagnostic messages to be suppressed.&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                        <widget class="QCheckBox" row="10" column="0">
+                            <property name="name">
+                                <cstring>NCB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Do not execute command (-N)</string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt; -N&lt;/b&gt;&lt;br&gt;      Do not execute a remote command.  This is useful for just forwarding ports (protocol version 2 only).&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                        <widget class="QCheckBox" row="3" column="0">
+                            <property name="name">
+                                <cstring>fCB</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Go in background (-f)</string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;qt&gt;&lt;b&gt; -f  &lt;/b&gt;&lt;br&gt;    Requests ssh to go to background just before command execution. This is useful if ssh is going to ask for passwords or
+passphrases, but the user wants it in the background.  This
+implies -n.  The recommended way to start X11 programs at a
+remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&gt;.&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                    </grid>
+                </widget>
+                <widget class="QCheckBox" row="7" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>ACB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Enable auth agent forwarding (-A)</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>&lt;qt&gt;&lt;b&gt;-A&lt;/b&gt;&lt;br&gt;      Enables forwarding of the authentication agent connection. This can also be specified on a per-host basis in a configuration file.&lt;/qt&gt;</string>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+        <widget class="QLayoutWidget" row="0" column="0">
+            <property name="name">
+                <cstring>Layout20</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <property name="margin">
+                    <number>0</number>
+                </property>
+                <property name="spacing">
+                    <number>6</number>
+                </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>TextLabel2</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>5</hsizetype>
+                            <vsizetype>5</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>Host:</string>
+                    </property>
+                </widget>
+                <widget class="KHistoryCombo">
+                    <property name="name">
+                        <cstring>hostCB</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>5</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="insertionPolicy">
+                        <enum>AtTop</enum>
+                    </property>
+                    <property name="duplicatesEnabled">
+                        <bool>false</bool>
+                    </property>
+                </widget>
+                <widget class="QToolButton">
+                    <property name="name">
+                        <cstring>hostTB</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>1</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>...</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Edit host list</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>This button opens a list editor to edit the host list</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <widget class="QLayoutWidget" row="1" column="0">
+            <property name="name">
+                <cstring>Layout21</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <property name="margin">
+                    <number>0</number>
+                </property>
+                <property name="spacing">
+                    <number>6</number>
+                </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>TextLabel1</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>5</hsizetype>
+                            <vsizetype>5</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>Username:</string>
+                    </property>
+                </widget>
+                <widget class="KHistoryCombo">
+                    <property name="name">
+                        <cstring>userCB</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>5</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="insertionPolicy">
+                        <enum>AtTop</enum>
+                    </property>
+                    <property name="duplicatesEnabled">
+                        <bool>false</bool>
+                    </property>
+                </widget>
+                <widget class="QToolButton">
+                    <property name="name">
+                        <cstring>userTB</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>1</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>...</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Edit this host user list</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>This button opens an editor to modify the list of users associated with the currently selected host</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <widget class="QLayoutWidget" row="4" column="0">
+            <property name="name">
+                <cstring>Layout24</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <property name="margin">
+                    <number>0</number>
+                </property>
+                <property name="spacing">
+                    <number>6</number>
+                </property>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>connectPB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Connect</string>
+                    </property>
+                    <property name="default">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>optionsPB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Show options</string>
+                    </property>
+                    <property name="toggleButton">
+                        <bool>false</bool>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>quitPB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Quit</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <widget class="QFrame" row="3" column="0">
+            <property name="name">
+                <cstring>editorF</cstring>
+            </property>
+            <property name="frameShape">
+                <enum>StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+                <enum>Plain</enum>
+            </property>
+            <property name="lineWidth">
+                <number>0</number>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <property name="margin">
+                    <number>0</number>
+                </property>
+                <property name="spacing">
+                    <number>6</number>
+                </property>
+                <widget class="QPushButton" row="1" column="1">
+                    <property name="name">
+                        <cstring>okPB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>OK</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton" row="2" column="1">
+                    <property name="name">
+                        <cstring>cancelPB</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Cancel</string>
+                    </property>
+                </widget>
+                <widget class="KEditListBox" row="0" column="0" rowspan="3" colspan="1">
+                    <property name="name">
+                        <cstring>userHostELB</cstring>
+                    </property>
+                    <property name="title">
+                        <string></string>
+                    </property>
+                </widget>
+                <spacer row="0" column="1">
+                    <property name="name" stdset="0">
+                        <cstring>Spacer3</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+            </grid>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>optionsPB</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>optionsGB</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>pCB</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>portSB</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>cCB</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>ccCB</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>vCB</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>vSB</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>hostCB</tabstop>
+    <tabstop>userCB</tabstop>
+    <tabstop>XCB</tabstop>
+    <tabstop>xCB</tabstop>
+    <tabstop>pCB</tabstop>
+    <tabstop>portSB</tabstop>
+    <tabstop>LCB</tabstop>
+    <tabstop>LLE</tabstop>
+    <tabstop>RCB</tabstop>
+    <tabstop>RLE</tabstop>
+    <tabstop>PCB</tabstop>
+    <tabstop>ssh1CB</tabstop>
+    <tabstop>ssh2CB</tabstop>
+    <tabstop>aCB</tabstop>
+    <tabstop>ACB</tabstop>
+    <tabstop>cCB</tabstop>
+    <tabstop>ccCB</tabstop>
+    <tabstop>CCB</tabstop>
+    <tabstop>FCB</tabstop>
+    <tabstop>FLE</tabstop>
+    <tabstop>IPV4CB</tabstop>
+    <tabstop>IPV6CB</tabstop>
+    <tabstop>commandLE</tabstop>
+    <tabstop>saveCB</tabstop>
+    <tabstop>aboutPB</tabstop>
+    <tabstop>savePB</tabstop>
+    <tabstop>morePB</tabstop>
+    <tabstop>bCB</tabstop>
+    <tabstop>bLE</tabstop>
+    <tabstop>c1CB</tabstop>
+    <tabstop>cLE</tabstop>
+    <tabstop>eCB</tabstop>
+    <tabstop>eLE</tabstop>
+    <tabstop>fCB</tabstop>
+    <tabstop>gCB</tabstop>
+    <tabstop>iCB</tabstop>
+    <tabstop>iLE</tabstop>
+    <tabstop>ICB</tabstop>
+    <tabstop>ILE</tabstop>
+    <tabstop>kCB</tabstop>
+    <tabstop>mCB</tabstop>
+    <tabstop>mLE</tabstop>
+    <tabstop>nCB</tabstop>
+    <tabstop>NCB</tabstop>
+    <tabstop>qCB</tabstop>
+    <tabstop>vCB</tabstop>
+    <tabstop>vSB</tabstop>
+    <tabstop>sCB</tabstop>
+    <tabstop>TCB</tabstop>
+    <tabstop>tCB</tabstop>
+    <tabstop>oCB</tabstop>
+    <tabstop>oLE</tabstop>
+    <tabstop>okPB</tabstop>
+    <tabstop>cancelPB</tabstop>
+    <tabstop>connectPB</tabstop>
+    <tabstop>optionsPB</tabstop>
+    <tabstop>quitPB</tabstop>
+</tabstops>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

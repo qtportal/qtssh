@@ -1,0 +1,4 @@
+#MIN_CONFIG(3)
+
+AM_INIT_AUTOMAKE(kssh,0.7)
+

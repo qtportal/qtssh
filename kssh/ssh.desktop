@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=KonsoleApplication
+Name=Secure Shell
+Comment=Nuova secure Shell
+Exec=kssh --die
+#Schema=BlackOnLightYellow.schema
+Icon=kssh
+#Schema=Linux.schema
+#VGA
+#Font=6

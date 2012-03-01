@@ -1,0 +1,518 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2002-04-14 13:12+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: main.cpp:31
+msgid "KDE SSH - A KDE front end for ssh"
+msgstr ""
+
+#: main.cpp:37
+msgid "Connect to \"host\" as \"user\""
+msgstr ""
+
+#: main.cpp:38
+msgid "Use this for konsole sessions (ignore --keepalive)"
+msgstr ""
+
+#: main.cpp:39
+msgid "Do not close the dialog after \"Connect\""
+msgstr ""
+
+#: main.cpp:47
+msgid "KDE Secure Shell "
+msgstr ""
+
+#: kssh.cpp:163
+msgid "Hide options"
+msgstr ""
+
+#: kssh.cpp:168 ksshdialog.cpp:505
+msgid "Show options"
+msgstr ""
+
+#: kssh.cpp:179
+msgid "Less..."
+msgstr ""
+
+#: kssh.cpp:184
+msgid "More.."
+msgstr ""
+
+#: kssh.cpp:1337
+msgid "Hosts:"
+msgstr ""
+
+#: kssh.cpp:1351
+msgid "User list for %1:"
+msgstr ""
+
+#: ksshdialog.cpp:44
+msgid "kssh"
+msgstr ""
+
+#: ksshdialog.cpp:49
+msgid "SSH options:"
+msgstr ""
+
+#: ksshdialog.cpp:57
+msgid "non privileged port (-P)"
+msgstr ""
+
+#: ksshdialog.cpp:58
+msgid ""
+"<qt><b> -P</b><br>      Use a non-privileged port for outgoing connections.  "
+"This can be used if a firewall does not permit connections from privileged\n"
+" ports.  Note that this option turns off <i>RhostsAuthentication</i> and\n"
+"<i>RhostsRSAAuthentication</i> for older servers.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:67
+msgid "Specifiy port (-p nn):"
+msgstr ""
+
+#: ksshdialog.cpp:68 ksshdialog.cpp:77
+msgid ""
+"<qt><b> -p port</b><br>\n"
+" Port to connect to on the remote host.  This can be specified on  a per-"
+"host basis in the configuration file.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:86
+msgid "Forward local (-L p:h:p):"
+msgstr ""
+
+#: ksshdialog.cpp:87 ksshdialog.cpp:100
+msgid ""
+"<qt><b>-L port:host:hostport</b><br>\n"
+"Specifies that the given port on the local (client) host is to be\n"
+"forwarded to the given host and port on the remote side.  This\n"
+"works by allocating a socket to listen to port on the local side,\n"
+"and whenever a connection is made to this port, the connection is\n"
+"forwarded over the secure channel, and a connection is made to\n"
+"host port hostport from the remote machine.  Port forwardings can\n"
+"also be specified in the configuration file.  Only root can for­\n"
+"ward privileged ports.  IPv6 addresses can be specified with an\n"
+"alternative syntax: port/host/hostport</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:117
+msgid "Forward Remote (-R p:h:p):"
+msgstr ""
+
+#: ksshdialog.cpp:118 ksshdialog.cpp:126
+msgid ""
+"<qt><b>-R port:host:hostport</b><br>\n"
+"Specifies that the given port on the remote (server) host is to\n"
+"be forwarded to the given host and port on the local side.  This\n"
+"works by allocating a socket to listen to port on the remote\n"
+"side, and whenever a connection is made to this port, the connection is forwarded over the secure channel, and a connection is made to host port hostport from the local machine.  Port forward­ings can also be specified in the configuration file.  Privileged ports can be forwarded only when logging in as root on the remote      machine.  IPv6 addresses can be specified with an alternative            syntax: port/host/hostport</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:138
+msgid "Try to use ssh1 (-1) "
+msgstr ""
+
+#: ksshdialog.cpp:139
+msgid "<qt><b>-1</b><br>      Forces ssh to try protocol version 1 only.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:143
+msgid "Try to use ssh2 (-2) "
+msgstr ""
+
+#: ksshdialog.cpp:144
+msgid "<qt><b>-2</b><br>      Forces ssh to try protocol version 2 only.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:152
+msgid "Enable X11 (-X)"
+msgstr ""
+
+#: ksshdialog.cpp:153
+msgid ""
+"<qt><b>-X</b><br> Enables X11 forwarding.  This can also be specified on a "
+"per-host basis in a configuration file.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:158
+msgid "Disable X11 (-x)"
+msgstr ""
+
+#: ksshdialog.cpp:159
+msgid "<qt><b>  -x</b><br>      Disables X11 forwarding.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:167
+msgid "Cipher to use (-c cipher):"
+msgstr ""
+
+#: ksshdialog.cpp:168
+msgid ""
+"<qt><b>-c blowfish|3des|des</b><br>        Selects the cipher to use for "
+"encrypting the session.  3des is used by default.  It is believed to be "
+"secure.  3des (triple-des) is an encrypt-decrypt-encrypt triple with three "
+"different keys. blowfish is a fast block cipher, it appears very secure and "
+"is much faster than 3des.  des is only supported in the ssh client for "
+"interoperability with legacy protocol 1 implementations that\n"
+"do not support the 3des cipher.  Its use is strongly discouraged\n"
+"due to cryptographic weaknesses.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:174
+msgid "3des"
+msgstr ""
+
+#: ksshdialog.cpp:175
+msgid "blowfish"
+msgstr ""
+
+#: ksshdialog.cpp:176
+msgid "des"
+msgstr ""
+
+#: ksshdialog.cpp:183
+msgid "Compression of all data (-C)"
+msgstr ""
+
+#: ksshdialog.cpp:184
+msgid ""
+"<qt><b> -C</b><br>      Requests compression of all data (including stdin, "
+"stdout,\n"
+"stderr, and data for forwarded X11 and TCP/IP connections).  The\n"
+"compression algorithm is the same used by gzip, and the\n"
+"``level'' can be controlled by the CompressionLevel option (see\n"
+"man:/ssh).  Compression is desirable on modem lines and other slow\n"
+"connections, but will only slow down things on fast networks. The default "
+"value can be set on a host-by-host basis in the configuration files; see the "
+"Compression option in man:/ssh."
+msgstr ""
+
+#: ksshdialog.cpp:196
+msgid "Save as default configuration"
+msgstr ""
+
+#: ksshdialog.cpp:200
+msgid "More..."
+msgstr ""
+
+#: ksshdialog.cpp:206
+msgid "Save this connection"
+msgstr ""
+
+#: ksshdialog.cpp:212
+msgid "About kssh..."
+msgstr ""
+
+#: ksshdialog.cpp:229
+msgid "Execute command:"
+msgstr ""
+
+#: ksshdialog.cpp:236
+msgid "Force IPv4 (-4)"
+msgstr ""
+
+#: ksshdialog.cpp:237
+msgid "<qt><b> -4</b><br>  Forces ssh to use IPv4 addresses only.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:241
+msgid "Force IPv6 (-6)"
+msgstr ""
+
+#: ksshdialog.cpp:242
+msgid "<qt><b> -6</b><br>  Forces ssh to use IPv6 addresses only.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:248
+msgid "Disable auth agent forwarding (-a)"
+msgstr ""
+
+#: ksshdialog.cpp:249
+msgid ""
+"<qt><b>-a</b><br>      Disables forwarding of the authentication agent "
+"connection.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:256
+msgid "Config file (-F):"
+msgstr ""
+
+#: ksshdialog.cpp:257
+msgid ""
+"<qt><b> -F configfile</b><br>     Specifies an alternative per-user "
+"configuration file.  If a configuration file is given on the command line, "
+"the system-wide\n"
+"configuration file (/etc/ssh/ssh_config) will be ignored.  The\n"
+"default for the per-user configuration file is $HOME/.ssh/config.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:276
+msgid "Bind address (-b address):"
+msgstr ""
+
+#: ksshdialog.cpp:277 ksshdialog.cpp:281
+msgid ""
+"<qt><b>-b bind_address</b> <br>Specify the interface to transmit from on "
+"machines with multiple interfaces or aliased addresses.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:289
+msgid "Cipher to use (-c list):"
+msgstr ""
+
+#: ksshdialog.cpp:290 ksshdialog.cpp:294
+msgid ""
+"<qt><b>-c cipher_spec</b><br>   Additionally, for protocol version 2 a comma-"
+"separated list of ciphers can be specified in order of preference. See man:/"
+"ssh, Ciphers dor more info.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:302
+msgid "Escape character (-e):"
+msgstr ""
+
+#: ksshdialog.cpp:303 ksshdialog.cpp:307 ksshdialog.cpp:411
+msgid ""
+"<qt><b> -e ch|^ch|none  </b> <br>   Sets the escape character for sessions "
+"with a pty (default: `~').The escape character is only recognized at the "
+"beginning of a line.  The escape character followed by a dot (`.') closes "
+"the connection, followed by control-Z suspends the connection, and followed "
+"by itself sends the escape character once.  Setting the character to "
+"``none'' disables any escapes and makes the session fully transparent.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:315
+msgid "Mac spec (-m):"
+msgstr ""
+
+#: ksshdialog.cpp:316 ksshdialog.cpp:320
+msgid ""
+"<qt><b>-m mac_spec</b><br>Additionally, for protocol version 2 a comma-"
+"separated list of MAC (message authentication code) algorithms can be "
+"specified in  order of preference.  See <a href=\"man:/ssh\">man:/ssh</a>, "
+"MACs keyword for more information.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:329
+msgid "Verbose (-v,-vv,-vvv):"
+msgstr ""
+
+#: ksshdialog.cpp:330
+msgid ""
+" <qt><b>-v</b><br>      Verbose mode.  Causes ssh to print debugging messages about its progress.  This is helpful in debugging connection, authentica­tion, and configuration problems. Verbosity level \n"
+"could be configured from 1 to 3 (3 is the maximum).</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:338
+msgid ""
+"<qt>Verbosity level. 1=minimum, 2=medium,3=maximum (It means -v,-vv,-vvv on "
+"ssh command line)</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:346
+msgid "Disbale TTY (-T)"
+msgstr ""
+
+#: ksshdialog.cpp:347
+msgid "<qt><b>-T</b><br>      Disable pseudo-tty allocation.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:351
+msgid "Force TTY (-t)"
+msgstr ""
+
+#: ksshdialog.cpp:352
+msgid ""
+"<qt><b>-t</b><br>Force pseudo-tty allocation.  This can be used to execute "
+"arbitrary screen-based programs on a remote machine, which can be\n"
+"very useful, e.g., when implementing menu services.  Multiple -t options "
+"force tty allocation, even if ssh has no local tty.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:359
+msgid "Subsystem (-s)"
+msgstr ""
+
+#: ksshdialog.cpp:360
+msgid ""
+"<qt><b> -s</b><br>      May be used to request invocation of a subsystem on "
+"the remote system. Subsystems are a feature of the SSH2 protocol which\n"
+"facilitate the use of SSH as a secure transport for other applications "
+"(<i>eg. sftp</i>). The subsystem is specified as the remote command.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:368
+msgid "More option (-o):"
+msgstr ""
+
+#: ksshdialog.cpp:369 ksshdialog.cpp:373
+msgid ""
+"<qt><b>-o option</b><br>Can be used to give options in the format used in "
+"the configuration file.  This is useful for specifying options for which "
+"there is no separate command-line flag.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:379
+msgid "Redirect stdin from /dev/null (-n)"
+msgstr ""
+
+#: ksshdialog.cpp:380
+msgid ""
+"<qt><b>-n</b> <br>Redirects stdin from <tt>/dev/null</tt> (actually, "
+"prevents reading from stdin).  This must be used when ssh is run in the "
+"background.  A common trick is to use this to run X11 programs on a remote "
+"machine.  For example, ssh -n shadows.cs.hut.fi emacs & will start an emacs "
+"on shadows.cs.hut.fi, and the X11 connection will be automatically forwarded "
+"over an encrypted channel.  The ssh  program will be put in the background.  "
+"(This does not work if ssh needs to ask for a password or passphrase; see "
+"also the -f option.)</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:387
+msgid "SmartCard device (-I):"
+msgstr ""
+
+#: ksshdialog.cpp:388 ksshdialog.cpp:392
+msgid ""
+"<qt><b>-I smartcard_device</b><br> Specifies which smartcard device to use. "
+"The argument is the device ssh should use to communicate with a smartcard "
+"used for storing the user's private RSA key.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:398
+msgid "Disable Kerberos forwarding (-k)"
+msgstr ""
+
+#: ksshdialog.cpp:399
+msgid ""
+"<qt><b> -k</b><br>Disables forwarding of Kerberos tickets and AFS tokens.  "
+"This may also be specified on a per-host basis in the configuration file.</"
+"qt>"
+msgstr ""
+
+#: ksshdialog.cpp:406
+msgid "Identity file (-i):"
+msgstr ""
+
+#: ksshdialog.cpp:407
+msgid ""
+"<qt><b>-i identity_file</b><br>Selects a file from which the identity "
+"(private key) for  <i>RSA</i> or <i>DSA</i> authentication is read.  The "
+"default is $HOME/.ssh/identity for protocol version 1, and $HOME/.ssh/id_rsa "
+"and $HOME/.ssh/id_dsa for protocol version 2.  Identity files may also be "
+"specified on a per-host basis in the configuration file. It is possible to "
+"have multiple -i options (and multiple identities specified in configuration "
+"files).</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:417
+msgid "Allow remote connection (-g)"
+msgstr ""
+
+#: ksshdialog.cpp:418
+msgid ""
+"<qt><b> -g</b><br>      Allows remote hosts to connect to local forwarded "
+"ports.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:423
+msgid "Quiet mode (-q)"
+msgstr ""
+
+#: ksshdialog.cpp:424
+msgid ""
+"<qt><b> -q</b><br> Quiet mode.  Causes all warning and diagnostic messages "
+"to be suppressed.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:429
+msgid "Do not execute command (-N)"
+msgstr ""
+
+#: ksshdialog.cpp:430
+msgid ""
+"<qt><b> -N</b><br>      Do not execute a remote command.  This is useful for "
+"just forwarding ports (protocol version 2 only).</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:435
+msgid "Go in background (-f)"
+msgstr ""
+
+#: ksshdialog.cpp:436
+msgid ""
+"<qt><b> -f  </b><br>    Requests ssh to go to background just before command "
+"execution. This is useful if ssh is going to ask for passwords or\n"
+"passphrases, but the user wants it in the background.  This\n"
+"implies -n.  The recommended way to start X11 programs at a\n"
+"remote site is with something like<br> <tt>ssh -f host xterm</tt>.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:446
+msgid "Enable auth agent forwarding (-A)"
+msgstr ""
+
+#: ksshdialog.cpp:447
+msgid ""
+"<qt><b>-A</b><br>      Enables forwarding of the authentication agent "
+"connection. This can also be specified on a per-host basis in a "
+"configuration file.</qt>"
+msgstr ""
+
+#: ksshdialog.cpp:457
+msgid "Host:"
+msgstr ""
+
+#: ksshdialog.cpp:468 ksshdialog.cpp:490
+msgid "..."
+msgstr ""
+
+#: ksshdialog.cpp:469
+msgid "Edit host list"
+msgstr ""
+
+#: ksshdialog.cpp:470
+msgid "This button opens a list editor to edit the host list"
+msgstr ""
+
+#: ksshdialog.cpp:479
+msgid "Username:"
+msgstr ""
+
+#: ksshdialog.cpp:491
+msgid "Edit this host user list"
+msgstr ""
+
+#: ksshdialog.cpp:492
+msgid ""
+"This button opens an editor to modify the list of users associated with the "
+"currently selected host"
+msgstr ""
+
+#: ksshdialog.cpp:500
+msgid "Connect"
+msgstr ""
+
+#: _translatorinfo.cpp:1
+msgid ""
+"_: NAME OF TRANSLATORS\n"
+"Your names"
+msgstr ""
+
+#: _translatorinfo.cpp:3
+msgid ""
+"_: EMAIL OF TRANSLATORS\n"
+"Your emails"
+msgstr ""
