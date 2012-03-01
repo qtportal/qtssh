@@ -23,14 +23,15 @@
 #endif
 //#include <kcombobox.h>
 //#include <kcompletion.h>
-#include <kapp.h>
-#include <kconfig.h>
-#include <qwidget.h>
-#include <qvector.h>
-#include <qstringlist.h>
+#include <QApplication>
+// #include <kconfig.h>
+#include <QWidget>
+#include <QVector>
+#include <QStringList>
+
 #include "ksshdialog.h"
 
-class KCompletion;
+// class KCompletion;
 
 /** KSSH is the base class of the project */
 class KSSH : public KSSHDialog
@@ -52,7 +53,7 @@ class KSSH : public KSSHDialog
     bool mopt;
     bool uEditor;
     bool hEditor;
-    KApplication *app;
+    QApplication *app;
     KConfig   *config;
    KCompletion *compUser;
    KCompletion *compHost;

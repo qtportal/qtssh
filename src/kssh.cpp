@@ -18,26 +18,27 @@
 #include "kssh.h"
 
 #include <QLocale>
+#include <QLineEdit>
+#include <QDebug>
+#include <QToolButton>
+#include <QPushButton>
+#include <QGroupBox>
+#include <QLayout>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QSpinBox>
+
 #include <kcompletion.h>
-#include <kdebug.h>
 #include <kcombobox.h>
 #include <kcmdlineargs.h>
 #include <krun.h>
 #include <kglobal.h>
 #include <kconfig.h>
-#include <kaboutapplication.h>
+// #include <kaboutapplication.h>
 #include <kurlcompletion.h>
-#include <qtoolbutton.h>
 #include <keditlistbox.h>
-#include <klineedit.h>
 #include <kurlrequester.h>
 
-#include <qpushbutton.h>
-#include <qgroupbox.h>
-#include <qlayout.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-#include <qspinbox.h>
 
 KSSH::KSSH(QWidget *parent, const char *name) : KSSHDialog(parent, name)
 {

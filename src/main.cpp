@@ -19,18 +19,13 @@
 #include <kaboutdata.h>
 #include <klocale.h>
 
-#include <qvector.h>
-
+#include <QVector>
 #include <unistd.h>
-
 #include "kssh.h"
-
 #include <stdio.h>
 
 static const char *description =
 	I18N_NOOP("KDE SSH - A KDE front end for ssh");
-// INSERT A DESCRIPTION FOR YOUR APPLICATION HERE
-	
 	
 static KCmdLineOptions options[] =
 {
@@ -43,49 +38,39 @@ static KCmdLineOptions options[] =
 
 int main(int argc, char *argv[])
 {
-
-  KAboutData aboutData( "kssh", I18N_NOOP("KDE Secure Shell "),
-    VERSION, description, KAboutData::License_GPL,
-    "(c) 2000-2002, Andrea Rizzi", 0, 0, "rizzi@kde.org");
+    KAboutData aboutData( "kssh", I18N_NOOP("KDE Secure Shell "),
+        VERSION, description, KAboutData::License_GPL,
+        "(c) 2000-2002, Andrea Rizzi", 0, 0, "rizzi@kde.org");
   aboutData.addAuthor("Andrea Rizzi",0, "rizzi@kde.org");
   aboutData.addCredit("OpenSSH","Documentation of ssh functions is taken\nfrom the OpenSSH man page",0,"man:/ssh");
   KCmdLineArgs::init( argc, argv, &aboutData );
   KCmdLineArgs::addCmdLineOptions( options ); // Add our own options.
 
-  KApplication a;
-  KSSH *kssh = new KSSH();
-  a.setMainWidget(kssh);
-  kssh->show();  
-  int ret=a.exec();
+    QApplication a;
+    KSSH *kssh = new KSSH();
+    a.setMainWidget(kssh);
+    kssh->show();
+    int ret=a.exec();
 
-  if(ret==1)  //Go ssh...
-    {
-    QCString uah;
-   uah=kssh->userathost().local8Bit();
-     QVector<char> vec;
-     int n;
-     QCString *q;
-     QStringList para=kssh->parameters();
-     vec.resize(n=(para.count()+3));
-     vec.insert(0,"ssh");
-     vec.insert(1,(const char*)uah);
-     for(int i=2;i<n-1;i++) {
-         q = new QCString(para[i-2].local8Bit());
-         vec.insert(i,(const char*)*q);
-    //     fprintf(stderr,"%d %d %s\n",n,i,vec[i]);
-      //    usleep(100000);
+    if(ret==1) {  //Go ssh...
+        QCString uah;
+        uah=kssh->userathost().local8Bit();
+        QVector<char> vec;
+        int n;
+        QCString *q;
+        QStringList para=kssh->parameters();
+        vec.resize(n=(para.count()+3));
+        vec.insert(0,"ssh");
+        vec.insert(1,(const char*)uah);
+        for(int i=2;i<n-1;i++) {
+            q = new QCString(para[i-2].local8Bit());
+            vec.insert(i,(const char*)*q);
+            //     fprintf(stderr,"%d %d %s\n",n,i,vec[i]);
+            //    usleep(100000);
+        }
+        vec.insert(n-1,0);
+        printf("\033]0;%s... \007\n", (const char *)uah);
+        return execvp("ssh",vec.data());
     }
-     vec.insert(n-1,0);
-   //  warning(uah);
-   //   fprintf(stderr,"%d #%s %s#\n",n,vec[0],vec[1]);
-   //       usleep(100000);
-
-   //   usleep(900000);
-
-   printf("\033]0;%s... \007\n", (const char *)uah);
-    return execvp("ssh",vec.data());
-    }
-
-
-  return 0;
+    return 0;
 }
