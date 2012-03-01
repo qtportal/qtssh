@@ -17,8 +17,8 @@
 
 #include "kssh.h"
 
+#include <QLocale>
 #include <kcompletion.h>
-#include <klocale.h>
 #include <kdebug.h>
 #include <kcombobox.h>
 #include <kcmdlineargs.h>
@@ -41,103 +41,97 @@
 
 KSSH::KSSH(QWidget *parent, const char *name) : KSSHDialog(parent, name)
 {
-//TODO
+    //TODO
+    QLayout *lay;
+    lay=layout();
+    if(lay)
+        lay->setResizeMode(QLayout::Fixed);
+
+    app=KApplication::kApplication();
+    config=app->config();
+
+    opt=false;
+    mopt=false;
+    editorF->hide();
 
 
- QLayout *lay;
- lay=layout();
- if(lay)
-   lay->setResizeMode(QLayout::Fixed);
+    // show();
+    QSize s=size();
+    // warning("%d %d\n",s.width(),s.height());
+    QPoint p(s.width(),s.height());
+    QPoint po=pos();
+    QDesktopWidget *d = QApplication::desktop();
+    int w=d->width();                   // returns desktop width
+    int h=d->height ();                  // returns desktop height
+    int x=0,y=0;
+    if((p+po).x()>w)
+        po.setX(x=w-p.x());
+    if((p+po).y()>h)
+        po.setY(y=h-p.y());
 
-  app=KApplication::kApplication();
-  config=app->config();
+    if(x<0) po.setX(0);
+    if(y<0) po.setY(0);
 
- opt=false;
- mopt=false;
+    move(po);
+    optionsGB->hide();
+    moreF->hide();
 
+    adjustSize();
 
- editorF->hide();
+    compUser = new KCompletion(); // userCB->completionObject();
+    userCB->setCompletionObject(compUser);
 
+    QDebug() << compUser << endl;
 
-// show();
- QSize s=size();
-// warning("%d %d\n",s.width(),s.height());
- QPoint p(s.width(),s.height());
- QPoint po=pos();
- QDesktopWidget *d = QApplication::desktop();
-  int w=d->width();                   // returns desktop width
-  int h=d->height ();                  // returns desktop height
- int x=0,y=0;
- if((p+po).x()>w)
-    po.setX(x=w-p.x());
- if((p+po).y()>h)
-    po.setY(y=h-p.y());
+    compHost= new KCompletion();
+    // compHost = hostCB->completionObject();
+    hostCB->setCompletionObject(compHost);
 
-if(x<0) po.setX(0);
-if(y<0) po.setY(0);
-
- move(po);
- optionsGB->hide();
- moreF->hide();
-
- adjustSize();
-
- compUser = new KCompletion(); // userCB->completionObject();
- userCB->setCompletionObject(compUser);
-
-// kdDebug(0) << compUser << endl;
-
-compHost= new KCompletion();
-// compHost = hostCB->completionObject();
-hostCB->setCompletionObject(compHost);
-
-// hostCB->setFocus();
-//  hostCB->clearEdit();
-//  hostCB->lineEdit()->installEventFilter( this );
+    // hostCB->setFocus();
+    //  hostCB->clearEdit();
+    //  hostCB->lineEdit()->installEventFilter( this );
 
 
- // kdDebug(0) << compHost << endl;
+    QDebug() << compHost << endl;
 
-// connect(userCB,SIGNAL(returnPressed(const QString&)),compUser,SLOT(addItem(const QString&)));
-// connect(hostCB,SIGNAL(returnPressed(const QString&)),compHost,SLOT(addItem(const QString&)));
+    // connect(userCB,SIGNAL(returnPressed(const QString&)),compUser,SLOT(addItem(const QString&)));
+    // connect(hostCB,SIGNAL(returnPressed(const QString&)),compHost,SLOT(addItem(const QString&)));
+    connect(hostCB,SIGNAL(textChanged(const QString&)),this,SLOT(userFor(const QString&)));
+    // connect(hostCB,SIGNAL(highlighted(const QString&)),this,SLOT(userFor(const QString&)));
+    connect(compHost,SIGNAL(match(const QString&)),this,SLOT(userFor(const QString&)));
 
-connect(hostCB,SIGNAL(textChanged(const QString&)),this,SLOT(userFor(const QString&)));
+    userCB->insertItem("");
+    hostCB->insertItem("");
 
-// connect(hostCB,SIGNAL(highlighted(const QString&)),this,SLOT(userFor(const QString&)));
- connect(compHost,SIGNAL(match(const QString&)),this,SLOT(userFor(const QString&)));
+    loadHosts();
 
-  userCB->insertItem("");
-  hostCB->insertItem("");
+    loadOptions("DefaultConfig");
 
- loadHosts();
+    connect(aboutPB,SIGNAL(clicked()),this,SLOT(about()));
+    connect(optionsPB,SIGNAL(clicked()),this,SLOT(options()));
+    connect(morePB,SIGNAL(clicked()),this,SLOT(moreOptions()));
 
-  loadOptions("DefaultConfig");
+    connect(hostTB,SIGNAL(clicked()),this,SLOT(hostEditor()));
+    connect(userTB,SIGNAL(clicked()),this,SLOT(userEditor()));
+    connect(cancelPB,SIGNAL(clicked()),this,SLOT(cancelEditor()));
+    connect(okPB,SIGNAL(clicked()),this,SLOT(okEditor()));
 
- connect(aboutPB,SIGNAL(clicked()),this,SLOT(about()));
- connect(optionsPB,SIGNAL(clicked()),this,SLOT(options()));
- connect(morePB,SIGNAL(clicked()),this,SLOT(moreOptions()));
+    connect(connectPB,SIGNAL(clicked()),this,SLOT(ssh()));
+    connect(savePB,SIGNAL(clicked()),this,SLOT(saveAsDefault()));
+    connect(quitPB,SIGNAL(clicked()),qApp,SLOT(quit()));
 
- connect(hostTB,SIGNAL(clicked()),this,SLOT(hostEditor()));
- connect(userTB,SIGNAL(clicked()),this,SLOT(userEditor()));
- connect(cancelPB,SIGNAL(clicked()),this,SLOT(cancelEditor()));
- connect(okPB,SIGNAL(clicked()),this,SLOT(okEditor()));
+    config->setGroup("General");
+    hostCB->setCurrentText(config->readEntry("LastHost"));
+    int def=KGlobalSettings::completionMode();
+    config->setGroup("General");
+    int mode=config->readNumEntry("HostCompletionMode",def);
+    // compHost->setCompletionMode((KGlobalSettings::Completion)mode);
+    hostCB->setCompletionMode((KGlobalSettings::Completion)mode);
 
- connect(connectPB,SIGNAL(clicked()),this,SLOT(ssh()));
- connect(savePB,SIGNAL(clicked()),this,SLOT(saveAsDefault()));
- connect(quitPB,SIGNAL(clicked()),qApp,SLOT(quit()));
-
- config->setGroup("General");
- hostCB->setCurrentText(config->readEntry("LastHost"));
- int def=KGlobalSettings::completionMode();
- config->setGroup("General");
- int mode=config->readNumEntry("HostCompletionMode",def);
-// compHost->setCompletionMode((KGlobalSettings::Completion)mode);
- hostCB->setCompletionMode((KGlobalSettings::Completion)mode);
-
- config->setGroup("General");
- mode=config->readNumEntry("UserCompletionMode",def);
- //compUser->setCompletionMode((KGlobalSettings::Completion)mode);
- userCB->setCompletionMode((KGlobalSettings::Completion)mode);
+    config->setGroup("General");
+    mode=config->readNumEntry("UserCompletionMode",def);
+    //compUser->setCompletionMode((KGlobalSettings::Completion)mode);
+    userCB->setCompletionMode((KGlobalSettings::Completion)mode);
 
 }
 
@@ -152,33 +146,27 @@ QString KSSH::userathost()
 
 QString KSSH::cmd()
 {
-  int n;
-  QString ret;
-  QStringList para=parameters();
-  n=para.count();
-  ret="ssh "+userCB->currentText()+"@"+hostCB->currentText()+" ";
-  for(int i=0;i<n;i++)
-      ret+=para[i]+" ";
-  return ret;
+    int n;
+    QString ret;
+    QStringList para=parameters();
+    n=para.count();
+    ret="ssh "+userCB->currentText()+"@"+hostCB->currentText()+" ";
+    for(int i=0;i<n;i++)
+        ret+=para[i] + " ";
+    return ret;
 }
 
 void KSSH::options()
 {
-
- editorF->hide();//to be sure
-
-  opt=!opt;
-  if(opt)
-    {
-      optionsPB->setText(i18n("Hide options"));
-      optionsGB->show();
+    editorF->hide();//to be sure
+    opt=!opt;
+    if(opt) {
+        optionsPB->setText(i18n("Hide options"));
+        optionsGB->show();
+    } else   {
+        optionsPB->setText(i18n("Show options"));
+        optionsGB->hide();
     }
- else
-   {
-    optionsPB->setText(i18n("Show options"));
- optionsGB->hide();
-  }
-
  }
 
 void KSSH::moreOptions()
@@ -200,110 +188,100 @@ void KSSH::moreOptions()
 
 void KSSH::about()
 {
- KAboutApplication *aa = new KAboutApplication;
- aa->show();
-
+    KAboutApplication *aa = new KAboutApplication;
+    aa->show();
 }
 
 void KSSH::ssh()
 {
+    config->setGroup("General");
+    config->writeEntry("LastHost",hostCB->currentText());
+    config->writeEntry("HostCompletionMode",compHost->completionMode());
+    config->writeEntry("UserCompletionMode",compUser->completionMode());
 
-config->setGroup("General");
- config->writeEntry("LastHost",hostCB->currentText());
- config->writeEntry("HostCompletionMode",compHost->completionMode());
- config->writeEntry("UserCompletionMode",compUser->completionMode());
+    compUser->addItem(userCB->currentText());
+    compHost->addItem(hostCB->currentText());
 
+    if(saveCB->isChecked())
+        saveOptions(hostCB->currentText()+"-Options");
 
- compUser->addItem(userCB->currentText());
- compHost->addItem(hostCB->currentText());
+    config->sync();
 
-if(saveCB->isChecked())
-  saveOptions(hostCB->currentText()+"-Options");
+    // if(KCmdLineArgs::isSet("die") )
+    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-config->sync();
-
-// if(KCmdLineArgs::isSet("die") )
- KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-
-if(args->isSet("die") )
-   qApp->exit(1);
-else
- {
- QString caption="KSSH: %1" ;
-
- QString terminal = KGlobal::config()->readEntry("TerminalApplication", "konsole");
- QString ex(terminal+" -T \""+caption.arg(userathost())+ "\"  -e "+cmd());
-   KRun::runCommand((const char *)ex.local8Bit());
-  if(!args->isSet("keepalive") ) qApp->quit();
-
- }
+    if(args->isSet("die") )
+        qApp->exit(1);
+    else  {
+        QString caption="KSSH: %1" ;
+        QString terminal = KGlobal::config()->readEntry("TerminalApplication", "konsole");
+        QString ex(terminal+" -T \""+caption.arg(userathost())+ "\"  -e "+cmd());
+        KRun::runCommand((const char *)ex.local8Bit());
+        if(!args->isSet("keepalive") ) qApp->quit();
+    }
 }
-
 
 void KSSH::loadHosts()
 {
-config->setGroup("Host List");
-
-hosts=config->readListEntry("Host");
-compHost->setItems(hosts);
-hostCB->insertStringList(hosts);
-
+    config->setGroup("Host List");
+    hosts=config->readListEntry("Host");
+    compHost->setItems(hosts);
+    hostCB->insertStringList(hosts);
 }
 
 void KSSH::saveAsDefault()
 {
+    config->setGroup("DefaultConfig");
+    config->writeEntry("-X",XCB->isChecked());
+    config->writeEntry("-x",xCB->isChecked());
+    config->writeEntry("-p",pCB->isChecked());
+    config->writeEntry("-L",LCB->isChecked());
+    config->writeEntry("-R",RCB->isChecked());
+    config->writeEntry("-P",PCB->isChecked());
+    config->writeEntry("-1",ssh1CB->isChecked());
+    config->writeEntry("-2",ssh2CB->isChecked());
+    config->writeEntry("-a",aCB->isChecked());
+    config->writeEntry("-A",ACB->isChecked());
+    config->writeEntry("-c",cCB->isChecked());
+    config->writeEntry("-C",CCB->isChecked());
+    config->writeEntry("-F",FCB->isChecked());
+    config->writeEntry("-4",IPV4CB->isChecked());
+    config->writeEntry("-6",IPV6CB->isChecked());
+    config->writeEntry("-b",bCB->isChecked());
+    config->writeEntry("-c1",c1CB->isChecked());
+    config->writeEntry("-e",eCB->isChecked());
+    config->writeEntry("-f",fCB->isChecked());
+    config->writeEntry("-g",gCB->isChecked());
+    config->writeEntry("-i",iCB->isChecked());
+    config->writeEntry("-I",ICB->isChecked());
+    config->writeEntry("-k",kCB->isChecked());
+    config->writeEntry("-m",mCB->isChecked());
+    config->writeEntry("-n",nCB->isChecked());
+    config->writeEntry("-N",NCB->isChecked());
+    config->writeEntry("-q",qCB->isChecked());
+    config->writeEntry("-v",vCB->isChecked());
+    config->writeEntry("-s",sCB->isChecked());
+    config->writeEntry("-T",TCB->isChecked());
+    config->writeEntry("-t",tCB->isChecked());
+    config->writeEntry("-o",oCB->isChecked());
 
-  config->setGroup("DefaultConfig");
-   config->writeEntry("-X",XCB->isChecked());
-   config->writeEntry("-x",xCB->isChecked());
-   config->writeEntry("-p",pCB->isChecked());
-   config->writeEntry("-L",LCB->isChecked());
-   config->writeEntry("-R",RCB->isChecked());
-   config->writeEntry("-P",PCB->isChecked());
-   config->writeEntry("-1",ssh1CB->isChecked());
-   config->writeEntry("-2",ssh2CB->isChecked());
-   config->writeEntry("-a",aCB->isChecked());
-   config->writeEntry("-A",ACB->isChecked());
-   config->writeEntry("-c",cCB->isChecked());
-   config->writeEntry("-C",CCB->isChecked());
-   config->writeEntry("-F",FCB->isChecked());
-   config->writeEntry("-4",IPV4CB->isChecked());
-   config->writeEntry("-6",IPV6CB->isChecked());
-   config->writeEntry("-b",bCB->isChecked());
-   config->writeEntry("-c1",c1CB->isChecked());
-   config->writeEntry("-e",eCB->isChecked());
-   config->writeEntry("-f",fCB->isChecked());
-   config->writeEntry("-g",gCB->isChecked());
-   config->writeEntry("-i",iCB->isChecked());
-   config->writeEntry("-I",ICB->isChecked());
-   config->writeEntry("-k",kCB->isChecked());
-   config->writeEntry("-m",mCB->isChecked());
-   config->writeEntry("-n",nCB->isChecked());
-   config->writeEntry("-N",NCB->isChecked());
-   config->writeEntry("-q",qCB->isChecked());
-   config->writeEntry("-v",vCB->isChecked());
-   config->writeEntry("-s",sCB->isChecked());
-   config->writeEntry("-T",TCB->isChecked());
-   config->writeEntry("-t",tCB->isChecked());
-   config->writeEntry("-o",oCB->isChecked());
+    config->writeEntry("Port",portSB->value());
+    config->writeEntry("VerboseLevel",vSB->value());
+    config->writeEntry("Cipher",ccCB->currentItem());
 
-  config->writeEntry("Port",portSB->value());
-  config->writeEntry("VerboseLevel",vSB->value());
-  config->writeEntry("Cipher",ccCB->currentItem());
+    config->writeEntry("LLE",LLE->text());
+    config->writeEntry("FLE",FLE->lineEdit()->text());
+    config->writeEntry("RLE",RLE->text());
+    config->writeEntry("cLE",cLE->text());
 
-  config->writeEntry("LLE",LLE->text());
-  config->writeEntry("FLE",FLE->lineEdit()->text());
-  config->writeEntry("RLE",RLE->text());
-  config->writeEntry("cLE",cLE->text());
+    config->writeEntry("eLE",eLE->text());
+    config->writeEntry("bLE",bLE->text());
+    config->writeEntry("iLE",iLE->lineEdit()->text());
 
-  config->writeEntry("eLE",eLE->text());
-  config->writeEntry("bLE",bLE->text());
-  config->writeEntry("iLE",iLE->lineEdit()->text());
-
-  config->writeEntry("ILE1",ILE->lineEdit()->text());
-  config->writeEntry("mLE",mLE->text());
-  config->writeEntry("oLE",oLE->text());
-  config->writeEntry("Command",commandLE->text());
+    config->writeEntry("ILE1",ILE->lineEdit()->text());
+    config->writeEntry("mLE",mLE->text());
+    config->writeEntry("oLE",oLE->text());
+    config->writeEntry("Command",commandLE->text());
 }
 
 QStringList KSSH::parameters()
