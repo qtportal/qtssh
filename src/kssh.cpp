@@ -28,16 +28,17 @@
 #include <QCheckBox>
 #include <QSpinBox>
 
-#include <kcompletion.h>
-#include <kcombobox.h>
-#include <kcmdlineargs.h>
-#include <krun.h>
-#include <kglobal.h>
-#include <kconfig.h>
+//#include <kcompletion.h>
+
+//#include <kcombobox.h>
+//#include <kcmdlineargs.h>
+//#include <krun.h>
+//#include <kglobal.h>
+//#include <kconfig.h>
 // #include <kaboutapplication.h>
-#include <kurlcompletion.h>
-#include <keditlistbox.h>
-#include <kurlrequester.h>
+//#include <kurlcompletion.h>
+//#include <keditlistbox.h>
+//#include <kurlrequester.h>
 
 
 KSSH::KSSH(QWidget *parent, const char *name) : KSSHDialog(parent, name)
@@ -142,7 +143,9 @@ KSSH::~KSSH()
 
 QString KSSH::userathost()
 {
-  return QString(userCB->currentText()+"@"+hostCB->currentText());
+    QString ret;
+ // return QString(userCB->currentText()+"@"+hostCB->currentText());
+    return ret;
 }
 
 QString KSSH::cmd()
@@ -162,10 +165,10 @@ void KSSH::options()
     editorF->hide();//to be sure
     opt=!opt;
     if(opt) {
-        optionsPB->setText(i18n("Hide options"));
+        optionsPB->setText(tr("Hide options"));
         optionsGB->show();
     } else   {
-        optionsPB->setText(i18n("Show options"));
+        optionsPB->setText(tr("Show options"));
         optionsGB->hide();
     }
  }
@@ -175,12 +178,12 @@ void KSSH::moreOptions()
   mopt=!mopt;
   if(mopt)
     {
-      morePB->setText(i18n("Less..."));
+      morePB->setText(tr("Less..."));
       moreF->show();
     }
  else
    {
-    morePB->setText(i18n("More.."));
+    morePB->setText(tr("More.."));
     moreF->hide();
   }
 
@@ -209,7 +212,7 @@ void KSSH::ssh()
     config->sync();
 
     // if(KCmdLineArgs::isSet("die") )
-    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+    //KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
     if(args->isSet("die") )
         qApp->exit(1);

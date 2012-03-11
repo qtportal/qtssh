@@ -29,12 +29,12 @@
 #include <QVector>
 #include <QStringList>
 
-#include "ksshdialog.h"
+#include "ui_qtsshdialog.h"
 
 // class KCompletion;
 
 /** KSSH is the base class of the project */
-class KSSH : public KSSHDialog
+class KSSH : public Ui_KSSHDialog
 {
   Q_OBJECT 
   public:

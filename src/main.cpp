@@ -24,6 +24,8 @@
 #include "kssh.h"
 #include <stdio.h>
 
+// http://www.kde.gr.jp/~ichi/qt/designer-manual-6.html
+
 static const char *description =
 	I18N_NOOP("KDE SSH - A KDE front end for ssh");
 	

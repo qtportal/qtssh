@@ -1,4 +1,4 @@
-#include <klocale.h>
+
 /****************************************************************************
 ** Form implementation generated from reading ui file './ksshdialog.ui'
 **
@@ -7,13 +7,13 @@
 **
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/
-#include "ksshdialog.h"
+#include "ui_qtsshdialog.h"
 
-#include <qvariant.h>
-#include <kcombobox.h>
-#include <keditlistbox.h>
-#include <klineedit.h>
-#include <kurlrequester.h>
+//#include <keditlistbox.h>
+//#include <kurlrequester.h>
+#include <QLineEdit>
+#include <QVariant>
+#include <QComboBox>
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qframe.h>
