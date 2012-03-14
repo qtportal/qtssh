@@ -21,27 +21,25 @@
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
-//#include <kcombobox.h>
-//#include <kcompletion.h>
 #include <QApplication>
-// #include <kconfig.h>
 #include <QWidget>
 #include <QVector>
 #include <QStringList>
 
 #include "ui_qtsshdialog.h"
 
-// class KCompletion;
+namespace Ui  {
+    class QtSSHDialog;
+}
 
-/** KSSH is the base class of the project */
-class KSSH : public Ui_KSSHDialog
+class QtSSHUi : public QWidget
 {
   Q_OBJECT 
   public:
     /** construtor */
-    KSSH(QWidget* parent=0, const char *name=0);
+    QtSSHUi(QWidget* parent=0, const char *name=0);
     /** destructor */
-    ~KSSH();
+    ~QtSSHUi();
 
   QString userathost();
   QString cmd();
@@ -73,6 +71,8 @@ class KSSH : public Ui_KSSHDialog
    void hostEditor();
    void okEditor();
    void cancelEditor();
+private:
+     Ui::QtSSHDialog ui;
 };
 
 #endif

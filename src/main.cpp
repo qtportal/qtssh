@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
   KCmdLineArgs::addCmdLineOptions( options ); // Add our own options.
 
     QApplication a;
-    KSSH *kssh = new KSSH();
+    QtSSHUi *kssh = new QtSSHUi();
     a.setMainWidget(kssh);
     kssh->show();
     int ret=a.exec();

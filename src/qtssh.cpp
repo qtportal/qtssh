@@ -15,8 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "kssh.h"
-
 #include <QLocale>
 #include <QLineEdit>
 #include <QDebug>
@@ -28,22 +26,13 @@
 #include <QCheckBox>
 #include <QSpinBox>
 
-//#include <kcompletion.h>
+#include "kssh.h"
 
-//#include <kcombobox.h>
-//#include <kcmdlineargs.h>
-//#include <krun.h>
-//#include <kglobal.h>
-//#include <kconfig.h>
-// #include <kaboutapplication.h>
-//#include <kurlcompletion.h>
-//#include <keditlistbox.h>
-//#include <kurlrequester.h>
-
-
-KSSH::KSSH(QWidget *parent, const char *name) : KSSHDialog(parent, name)
+QtSSHUi::QtSSHUi(QWidget *parent) : QWidget(parent), ui(new Ui::QtSSHDialog)
 {
     //TODO
+    ui->setupUi(this);
+
     QLayout *lay;
     lay=layout();
     if(lay)
@@ -137,18 +126,19 @@ KSSH::KSSH(QWidget *parent, const char *name) : KSSHDialog(parent, name)
 
 }
 
-KSSH::~KSSH()
+QtSSHUi::~QtSSHUi()
 {
+    delete ui;
 }
 
-QString KSSH::userathost()
+QString QtSSHUi::userathost()
 {
     QString ret;
  // return QString(userCB->currentText()+"@"+hostCB->currentText());
     return ret;
 }
 
-QString KSSH::cmd()
+QString QtSSHUi::cmd()
 {
     int n;
     QString ret;
@@ -160,7 +150,7 @@ QString KSSH::cmd()
     return ret;
 }
 
-void KSSH::options()
+void QtSSHUi::options()
 {
     editorF->hide();//to be sure
     opt=!opt;
@@ -173,7 +163,7 @@ void KSSH::options()
     }
  }
 
-void KSSH::moreOptions()
+void QtSSHUi::moreOptions()
 {
   mopt=!mopt;
   if(mopt)
@@ -190,13 +180,13 @@ void KSSH::moreOptions()
  }
 
 
-void KSSH::about()
+void QtSSHUi::about()
 {
     KAboutApplication *aa = new KAboutApplication;
     aa->show();
 }
 
-void KSSH::ssh()
+void QtSSHUi::ssh()
 {
     config->setGroup("General");
     config->writeEntry("LastHost",hostCB->currentText());
@@ -225,7 +215,7 @@ void KSSH::ssh()
     }
 }
 
-void KSSH::loadHosts()
+void QtSSHUi::loadHosts()
 {
     config->setGroup("Host List");
     hosts=config->readListEntry("Host");
@@ -233,7 +223,7 @@ void KSSH::loadHosts()
     hostCB->insertStringList(hosts);
 }
 
-void KSSH::saveAsDefault()
+void QtSSHUi::saveAsDefault()
 {
     config->setGroup("DefaultConfig");
     config->writeEntry("-X",XCB->isChecked());
@@ -288,7 +278,7 @@ void KSSH::saveAsDefault()
     config->writeEntry("Command",commandLE->text());
 }
 
-QStringList KSSH::parameters()
+QStringList QtSSHUi::parameters()
 {
   QStringList ret;
     int count=0;
@@ -478,7 +468,7 @@ return ret;
 }
 
 
-void KSSH::saveLists()
+void QtSSHUi::saveLists()
 {
   config->setGroup("Host List");
    config->writeEntry("Host",compHost->items());
@@ -487,7 +477,7 @@ void KSSH::saveLists()
 
 }
 
-void KSSH::saveOptions(QString group)
+void QtSSHUi::saveOptions(QString group)
 {
 
  bool setFlag;
@@ -955,7 +945,7 @@ QString  str =config->readEntry("RLE");
 }
 
 
-bool KSSH::loadOptions(QString group)
+bool QtSSHUi::loadOptions(QString group)
 {
 
  bool setFlag;
@@ -1277,7 +1267,7 @@ if(config->hasKey("-o"))
 return ret;
 }
 
-void KSSH::userFor(const QString& host)
+void QtSSHUi::userFor(const QString& host)
 {
   userCB->clear();
   compUser->clear();
@@ -1328,7 +1318,7 @@ else
 
 }
 
-void KSSH::hostEditor()
+void QtSSHUi::hostEditor()
 {
 // userHostELB->clear();
 
@@ -1344,7 +1334,7 @@ userHostELB->lineEdit()->clear();
 }
 
 
-void KSSH::userEditor()
+void QtSSHUi::userEditor()
 {
 // userHostELB->clear();
 
@@ -1360,7 +1350,7 @@ userHostELB->lineEdit()->clear();
  editorF->show();
 }
 
-void KSSH::okEditor()
+void QtSSHUi::okEditor()
 {
 
   if(uEditor)
@@ -1389,7 +1379,7 @@ userHostELB->lineEdit()->clear();
  config->sync();
 }
 
-void KSSH::cancelEditor()
+void QtSSHUi::cancelEditor()
 {
  editorF->hide();
 // userHostELB->clear();

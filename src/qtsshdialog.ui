@@ -434,7 +434,7 @@ default for the per-user configuration file is $HOME/.ssh/config.&lt;/qt&gt;</st
          </widget>
         </item>
         <item>
-         <widget class="QtFileChooser" name="FLE"/>
+         <widget class="QtFileChooser" name="FLE" native="true"/>
         </item>
        </layout>
       </item>
@@ -722,7 +722,7 @@ facilitate the use of SSH as a secure transport for other applications (&lt;i&gt
             </widget>
            </item>
            <item>
-            <widget class="QtFileChooser" name="qtfilechooser"/>
+            <widget class="QtFileChooser" name="qtfilechooser" native="true"/>
            </item>
           </layout>
          </item>
@@ -820,15 +820,9 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
       </widget>
      </item>
      <item>
-      <widget class="KHistoryCombo" name="hostCB" native="true">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="duplicatesEnabled" stdset="0">
-        <bool>false</bool>
+      <widget class="QComboBox" name="comboBox">
+       <property name="editable">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -874,6 +868,13 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
        </property>
        <property name="wordWrap">
         <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox_2">
+       <property name="editable">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -1011,14 +1012,8 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
    <extends>QWidget</extends>
    <header>qtfilechooser.h</header>
   </customwidget>
-  <customwidget>
-   <class>KHistoryCombo</class>
-   <extends>QWidget</extends>
-   <header>khistorycombo.h</header>
-  </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>hostCB</tabstop>
   <tabstop>XCB</tabstop>
   <tabstop>xCB</tabstop>
   <tabstop>pCB</tabstop>
