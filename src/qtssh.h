@@ -26,35 +26,30 @@
 #include <QVector>
 #include <QStringList>
 
-#include "ui_qtsshdialog.h"
+#include "../ui_qtsshdialog.h"
 
 namespace Ui  {
     class QtSSHDialog;
 }
 
-class QtSSHUi : public QWidget
+class QtSSHUi : public QDialog
 {
   Q_OBJECT 
-  public:
+public:
+
     /** construtor */
-    QtSSHUi(QWidget* parent=0, const char *name=0);
+    QtSSHUi(QWidget* parent=0);
+
     /** destructor */
     ~QtSSHUi();
 
-  QString userathost();
-  QString cmd();
-  QStringList parameters();
-  private:
+    QString userathost();
+    QString cmd();
+    QStringList parameters();
+private:
   //  QVector<QString> users;
-    QStringList hosts;
-    bool opt;
-    bool mopt;
-    bool uEditor;
-    bool hEditor;
-    QApplication *app;
-    KConfig   *config;
-   KCompletion *compUser;
-   KCompletion *compHost;
+    //KCompletion *compUser;
+   // KCompletion *compHost;
 
     void saveLists();
     void loadHosts();
@@ -71,8 +66,17 @@ class QtSSHUi : public QWidget
    void hostEditor();
    void okEditor();
    void cancelEditor();
+
 private:
-     Ui::QtSSHDialog ui;
+   QStringList hosts;
+   bool opt;
+   bool mopt;
+   bool uEditor;
+   bool hEditor;
+   QApplication *app;
+//   KConfig   *config;
+
+   Ui::QtSSHDialog *ui;
 };
 
 #endif

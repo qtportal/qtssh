@@ -27,7 +27,7 @@
 
 class QPushButton;
 
-class QDESIGNER_WIDGET_EXPORT QtFileChooser : public QWidget
+class QtFileChooser : public QWidget
 {
     Q_OBJECT
 

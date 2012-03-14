@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>KSSHDialog</class>
- <widget class="QDialog" name="KSSHDialog">
+ <class>QtSSHDialog</class>
+ <widget class="QDialog" name="QtSSHDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -434,7 +434,7 @@ default for the per-user configuration file is $HOME/.ssh/config.&lt;/qt&gt;</st
          </widget>
         </item>
         <item>
-         <widget class="QtFileChooser" name="FLE" native="true"/>
+         <widget class="QtFileChooser" name="FLE"/>
         </item>
        </layout>
       </item>
@@ -516,7 +516,7 @@ default for the per-user configuration file is $HOME/.ssh/config.&lt;/qt&gt;</st
             <number>0</number>
            </property>
            <item>
-            <widget class="QCheckBox" name="eCB">
+            <widget class="QCheckBox" name="chb_eCB_escapeCharacter">
              <property name="whatsThis">
               <string>&lt;qt&gt;&lt;b&gt; -e ch|^ch|none  &lt;/b&gt; &lt;br&gt;   Sets the escape character for sessions with a pty (default: `~').The escape character is only recognized at the beginning of a line.  The escape character followed by a dot (`.') closes the connection, followed by control-Z suspends the connection, and followed by itself sends the escape character once.  Setting the character to ``none'' disables any escapes and makes the session fully transparent.&lt;/qt&gt;</string>
              </property>
@@ -722,7 +722,7 @@ facilitate the use of SSH as a secure transport for other applications (&lt;i&gt
             </widget>
            </item>
            <item>
-            <widget class="QtFileChooser" name="qtfilechooser" native="true"/>
+            <widget class="QtFileChooser" name="qtfilechooser"/>
            </item>
           </layout>
          </item>
@@ -820,7 +820,7 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBox">
+      <widget class="QComboBox" name="cmb_hosts">
        <property name="editable">
         <bool>true</bool>
        </property>
@@ -872,7 +872,7 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBox_2">
+      <widget class="QComboBox" name="cmb_username">
        <property name="editable">
         <bool>true</bool>
        </property>
@@ -1043,7 +1043,7 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
   <tabstop>bLE</tabstop>
   <tabstop>c1CB</tabstop>
   <tabstop>cLE</tabstop>
-  <tabstop>eCB</tabstop>
+  <tabstop>chb_eCB_escapeCharacter</tabstop>
   <tabstop>eLE</tabstop>
   <tabstop>fCB</tabstop>
   <tabstop>gCB</tabstop>
