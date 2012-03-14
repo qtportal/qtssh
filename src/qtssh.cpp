@@ -473,6 +473,8 @@ void QtSSHUi::saveLists()
     config->writeEntry("User",compUser->items());
 }
 
+
+
 void QtSSHUi::saveOptions(QString group)
 {
 
