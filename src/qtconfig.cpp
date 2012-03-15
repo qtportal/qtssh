@@ -25,5 +25,6 @@ void QtConfig::writeEntry(const QString &wk, const QString& data)
         m_settings->beginGroup(m_currentGroup);
         m_settings->setValue(wk,data);
         m_settings->endGroup();
+        qDebug () << "writeentry";
     }
 }
