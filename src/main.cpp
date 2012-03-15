@@ -15,64 +15,65 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <kcmdlineargs.h>
-#include <kaboutdata.h>
-#include <klocale.h>
+//#include <kcmdlineargs.h>
+//#include <kaboutdata.h>
+//#include <klocale.h>
 
+#include <QApplication>
 #include <QVector>
 #include <unistd.h>
-#include "kssh.h"
+#include "qtssh.h"
 #include <stdio.h>
 
 // http://www.kde.gr.jp/~ichi/qt/designer-manual-6.html
 
-static const char *description =
-	I18N_NOOP("KDE SSH - A KDE front end for ssh");
+//static const char *description =
+//	I18N_NOOP("KDE SSH - A KDE front end for ssh");
 	
-static KCmdLineOptions options[] =
-{
-{"+[user@host]",I18N_NOOP("Connect to \"host\" as \"user\""),0},
-{ "die",I18N_NOOP("Use this for konsole sessions (ignore --keepalive)"),0},
-  { "keepalive",I18N_NOOP("Do not close the dialog after \"Connect\""),0},
-  { 0, 0, 0 }
-  // INSERT YOUR COMMANDLINE OPTIONS HERE
-};
+//static KCmdLineOptions options[] =
+//{
+//{"+[user@host]",I18N_NOOP("Connect to \"host\" as \"user\""),0},
+//{ "die",I18N_NOOP("Use this for konsole sessions (ignore --keepalive)"),0},
+//  { "keepalive",I18N_NOOP("Do not close the dialog after \"Connect\""),0},
+//  { 0, 0, 0 }
+//  // INSERT YOUR COMMANDLINE OPTIONS HERE
+//};
 
 int main(int argc, char *argv[])
 {
-    KAboutData aboutData( "kssh", I18N_NOOP("KDE Secure Shell "),
-        VERSION, description, KAboutData::License_GPL,
-        "(c) 2000-2002, Andrea Rizzi", 0, 0, "rizzi@kde.org");
-  aboutData.addAuthor("Andrea Rizzi",0, "rizzi@kde.org");
-  aboutData.addCredit("OpenSSH","Documentation of ssh functions is taken\nfrom the OpenSSH man page",0,"man:/ssh");
-  KCmdLineArgs::init( argc, argv, &aboutData );
-  KCmdLineArgs::addCmdLineOptions( options ); // Add our own options.
+//    KAboutData aboutData( "kssh", I18N_NOOP("KDE Secure Shell "),
+//        VERSION, description, KAboutData::License_GPL,
+//        "(c) 2000-2002, Andrea Rizzi", 0, 0, "rizzi@kde.org");
+//  aboutData.addAuthor("Andrea Rizzi",0, "rizzi@kde.org");
+//  aboutData.addCredit("OpenSSH","Documentation of ssh functions is taken\nfrom the OpenSSH man page",0,"man:/ssh");
+//  KCmdLineArgs::init( argc, argv, &aboutData );
+//  KCmdLineArgs::addCmdLineOptions( options ); // Add our own options.
 
-    QApplication a;
+    QApplication a(argc, argv);
     QtSSHUi *kssh = new QtSSHUi();
-    a.setMainWidget(kssh);
+    //a.setMainWidget(kssh);
     kssh->show();
     int ret=a.exec();
 
     if(ret==1) {  //Go ssh...
-        QCString uah;
-        uah=kssh->userathost().local8Bit();
-        QVector<char> vec;
-        int n;
-        QCString *q;
-        QStringList para=kssh->parameters();
-        vec.resize(n=(para.count()+3));
-        vec.insert(0,"ssh");
-        vec.insert(1,(const char*)uah);
-        for(int i=2;i<n-1;i++) {
-            q = new QCString(para[i-2].local8Bit());
-            vec.insert(i,(const char*)*q);
-            //     fprintf(stderr,"%d %d %s\n",n,i,vec[i]);
-            //    usleep(100000);
-        }
-        vec.insert(n-1,0);
-        printf("\033]0;%s... \007\n", (const char *)uah);
-        return execvp("ssh",vec.data());
+        QString uah;
+        uah=kssh->userathost().toLocal8Bit();
+//        QVector<char> vec;
+//        int n;
+//        QString *q;
+//        QStringList para=kssh->parameters();
+//        vec.resize(n=(para.count()+3));
+//        vec.insert(0,"ssh");
+//        // vec.insert(1,uah.toLocal8Bit());
+//        for(int i=2;i<n-1;i++) {
+//            q = new QString(para[i-2].toLocal8Bit());
+//            vec.insert(i,(const char*)*q->to);
+//            //     fprintf(stderr,"%d %d %s\n",n,i,vec[i]);
+//            //    usleep(100000);
+//        }
+//        vec.insert(n-1,0);
+//        printf("\033]0;%s... \007\n", (const char *)uah);
+//        return execvp("ssh",vec.data());
     }
     return 0;
 }

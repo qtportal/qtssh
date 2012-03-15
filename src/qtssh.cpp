@@ -158,10 +158,10 @@ void QtSSHUi::options()
     //        optionsPB->setText(tr("Show options"));
     //        optionsGB->hide();
     //    }
-    // }
+}
 
-    //void QtSSHUi::moreOptions()
-    //{
+void QtSSHUi::moreOptions()
+{
     //  mopt=!mopt;
     //  if(mopt)
     //    {
@@ -467,12 +467,17 @@ return ret;
 
 void QtSSHUi::saveLists()
 {
-    config->setGroup("Host List");
-    config->writeEntry("Host",ui->cmb_hosts->items());
-    config->setGroup(ui->cmb_hosts->currentText()+"-User List");
-    config->writeEntry("User",compUser->items());
-}
+    QStringList hostData;
+    int count = ui->cmb_hosts->count();
+    for (int i =0; i < count; i++)   {
+        hostData.append(ui->cmb_hosts->itemText(i));
+    }
 
+    //config->setGroup("Host List");
+    //config->writeEntry("Host",ui->cmb_hosts->);
+//    config->setGroup(ui->cmb_hosts->currentText()+"-User List");
+//    config->writeEntry("User",compUser->items());
+}
 
 
 void QtSSHUi::saveOptions(QString group)
