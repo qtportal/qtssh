@@ -5,7 +5,14 @@ TARGET = qtssh
 DEPENDPATH += . src
 INCLUDEPATH += . src
 
-# Input
-HEADERS += src/qtssh.h src/qtfilechooser.h
 FORMS = src/qtsshdialog.ui
-SOURCES += src/qtssh.cpp src/main.cpp src/qtfilechooser.cpp
+
+# Input
+HEADERS +=  src/qtssh.h  \
+            src/qtfilechooser.h \
+            src/qtconfig.h
+
+SOURCES +=  src/qtssh.cpp \
+            src/main.cpp \
+            src/qtfilechooser.cpp \
+            src/qtconfig.cpp

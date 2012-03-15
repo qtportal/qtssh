@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>750</width>
+    <width>751</width>
     <height>786</height>
    </rect>
   </property>
@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>kssh</string>
+   <string>qtssh</string>
   </property>
   <layout class="QGridLayout">
    <property name="margin">
@@ -339,7 +339,7 @@ connections, but will only slow down things on fast networks. The default value 
       <item row="15" column="1">
        <widget class="QPushButton" name="aboutPB">
         <property name="text">
-         <string>About kssh...</string>
+         <string>About qtssh..</string>
         </property>
        </widget>
       </item>
@@ -908,7 +908,7 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
       <number>0</number>
      </property>
      <item>
-      <widget class="QPushButton" name="connectPB">
+      <widget class="QPushButton" name="btnConnect">
        <property name="text">
         <string>Connect</string>
        </property>
@@ -918,7 +918,7 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="optionsPB">
+      <widget class="QPushButton" name="btnShowOptions">
        <property name="text">
         <string>Show options</string>
        </property>
@@ -928,7 +928,7 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="quitPB">
+      <widget class="QPushButton" name="btnQuit">
        <property name="text">
         <string>Quit</string>
        </property>
@@ -996,18 +996,6 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <customwidgets>
   <customwidget>
-   <class>Q3GroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>Qt3Support/Q3GroupBox</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>Q3Frame</class>
-   <extends>QFrame</extends>
-   <header>Qt3Support/Q3Frame</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>QtFileChooser</class>
    <extends>QWidget</extends>
    <header>qtfilechooser.h</header>
@@ -1063,14 +1051,14 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
   <tabstop>oLE</tabstop>
   <tabstop>okPB</tabstop>
   <tabstop>cancelPB</tabstop>
-  <tabstop>connectPB</tabstop>
-  <tabstop>optionsPB</tabstop>
-  <tabstop>quitPB</tabstop>
+  <tabstop>btnConnect</tabstop>
+  <tabstop>btnShowOptions</tabstop>
+  <tabstop>btnQuit</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>optionsPB</sender>
+   <sender>btnShowOptions</sender>
    <signal>toggled(bool)</signal>
    <receiver>optionsGB</receiver>
    <slot>setEnabled(bool)</slot>

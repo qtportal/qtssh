@@ -32,22 +32,25 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
 {
     ui->setupUi(this);
 
-//    QLayout *lay;
-//    lay=layout();
-//    if(lay)
-//        lay->setResizeMode(QLayout::Fixed);
+    m_config = new QtConfig ();
+
+    QLayout *lay;
+    lay=layout();
+    if(lay)  {
+        lay->setSizeConstraint(QLayout::SetFixedSize);
+    }
 
 //    app=KApplication::kApplication();
 //    config=app->config();
 
-//    opt=false;
-//    mopt=false;
+      m_opt=false;
+      m_mopt=false;
 //    editorF->hide();
 
 
 //    // show();
-//    QSize s=size();
-//    // warning("%d %d\n",s.width(),s.height());
+    QSize s=size();
+    qDebug() << s.width() <<  s.height();
 //    QPoint p(s.width(),s.height());
 //    QPoint po=pos();
 //    QDesktopWidget *d = QApplication::desktop();
@@ -106,9 +109,9 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
 //    connect(cancelPB,SIGNAL(clicked()),this,SLOT(cancelEditor()));
 //    connect(okPB,SIGNAL(clicked()),this,SLOT(okEditor()));
 
-//    connect(connectPB,SIGNAL(clicked()),this,SLOT(ssh()));
-//    connect(savePB,SIGNAL(clicked()),this,SLOT(saveAsDefault()));
-//    connect(quitPB,SIGNAL(clicked()),qApp,SLOT(quit()));
+    connect(ui->btnConnect,SIGNAL(clicked()),this,SLOT(ssh()));
+    connect(ui->btnShowOptions,SIGNAL(clicked()),this,SLOT(saveAsDefault()));
+    connect(ui->btnQuit,SIGNAL(clicked()),qApp,SLOT(quit()));
 
 //    config->setGroup("General");
 //    hostCB->setCurrentText(config->readEntry("LastHost"));

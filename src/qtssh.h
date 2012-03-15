@@ -15,18 +15,20 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KSSH_H
-#define KSSH_H
+#ifndef QTSSH_H
+#define QTSSH_H
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
+
 #include <QApplication>
 #include <QWidget>
 #include <QVector>
 #include <QStringList>
 
 #include "../ui_qtsshdialog.h"
+#include "qtconfig.h"
 
 namespace Ui  {
     class QtSSHDialog;
@@ -37,17 +39,18 @@ class QtSSHUi : public QDialog
   Q_OBJECT 
 public:
 
-    /** construtor */
+    // construtor
     QtSSHUi(QWidget* parent=0);
 
-    /** destructor */
+    // destructor
     ~QtSSHUi();
 
     QString userathost();
     QString cmd();
     QStringList parameters();
+
 private:
-  //  QVector<QString> users;
+    QVector<QString> users;
     //KCompletion *compUser;
    // KCompletion *compHost;
 
@@ -55,28 +58,28 @@ private:
     void loadHosts();
     void saveOptions(QString group);
     bool loadOptions(QString group);
+
  public slots:
-   void userFor(const QString&);
-   void options();
-   void saveAsDefault();
-   void moreOptions();
-   void ssh();
-   void about();
-   void userEditor();
-   void hostEditor();
-   void okEditor();
-   void cancelEditor();
+    void userFor(const QString&);
+    void options();
+    void saveAsDefault();
+    void moreOptions();
+    void ssh();
+    void about();
+    void userEditor();
+    void hostEditor();
+    void okEditor();
+    void cancelEditor();
 
 private:
-   QStringList hosts;
-   bool opt;
-   bool mopt;
-   bool uEditor;
-   bool hEditor;
-   QApplication *app;
-//   KConfig   *config;
-
-   Ui::QtSSHDialog *ui;
+    QStringList hosts;
+    bool m_opt;
+    bool m_mopt;
+    bool uEditor;
+    bool hEditor;
+    QApplication *app;
+    QtConfig    *m_config;
+    Ui::QtSSHDialog *ui;
 };
 
-#endif
+#endif      // QTSSH_H
