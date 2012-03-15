@@ -33,6 +33,7 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
     ui->setupUi(this);
 
     m_config = new QtConfig ();
+    m_config->writeEntry("test", "12");
 
     QLayout *lay;
     lay=layout();

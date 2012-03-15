@@ -1,9 +1,11 @@
+#include <QDebug>
 #include <QSettings>
 #include "qtconfig.h"
 
 QtConfig::QtConfig()
 {
-    m_settings = new QSettings("qtssh", QSettings::IniFormat );
+    m_settings = new QSettings("qtssh.ini", QSettings::IniFormat );
+    qDebug () << m_settings->fileName();
     m_currentGroup = "";
 }
 
