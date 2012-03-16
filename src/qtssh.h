@@ -1,19 +1,21 @@
-/***************************************************************************
-                          kssh.h  -  description
-                             -------------------
-    begin                : gio mar 14 18:37:43 CET 2002
-    copyright            : (C) 2002 by Andrea Rizzi
-    email                : rizzi@kde.org
- ***************************************************************************/
 
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+// Copyright (c) 2012 Olli-Pekka Wallin.
+//
+// Original idea and concept by Andrea Rizzi 2002
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License version 2.1 as published by the Free Software Foundation.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along <ith this library; see the file COPYING.LIB.  If not, write to
+// the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+// Boston, MA 02110-1301, USA.
 
 #ifndef QTSSH_H
 #define QTSSH_H

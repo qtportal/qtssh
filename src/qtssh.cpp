@@ -1,19 +1,20 @@
-/***************************************************************************
-                          kssh.cpp  -  description
-                             -------------------
-    begin                : gio mar 14 18:37:43 CET 2002
-    copyright            : (C) 2002 by Andrea Rizzi
-    email                : rizzi@kde.org
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+// Copyright (c) 2012 Olli-Pekka Wallin
+//
+// Original idea and concept by Andrea Rizzi 2002
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License version 2.1 as published by the Free Software Foundation.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along <ith this library; see the file COPYING.LIB.  If not, write to
+// the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+// Boston, MA 02110-1301, USA.
 
 #include <QLocale>
 #include <QLineEdit>
@@ -28,13 +29,16 @@
 
 #include "qtssh.h"
 
+// optionsGB -> groupbox -> grbOptions
+// optionsPB -> pushButton --> btnShowOptions
+// editorF --> frame --> frmMore
+// savePB --> pushbutton --> btnSaveAsDefault
+
 QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
 {
     ui->setupUi(this);
 
     m_config = new QtConfig ();
-    m_config->setGroup ("main");
-    m_config->writeEntry("test", "12");
 
     QLayout *lay;
     lay=layout();
@@ -45,14 +49,13 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
 //    app=KApplication::kApplication();
 //    config=app->config();
 
-      m_opt=false;
-      m_mopt=false;
-//    editorF->hide();
+    m_opt=false;
+    m_mopt=false;
+    ui->frmMore->hide();
 
 
 //    // show();
     QSize s=size();
-    qDebug() << s.width() <<  s.height();
 //    QPoint p(s.width(),s.height());
 //    QPoint po=pos();
 //    QDesktopWidget *d = QApplication::desktop();
@@ -68,10 +71,10 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
 //    if(y<0) po.setY(0);
 
 //    move(po);
-//    optionsGB->hide();
+     ui->grbOptions->hide();
 //    moreF->hide();
 
-//    adjustSize();
+    adjustSize();
 
 //    compUser = new KCompletion(); // userCB->completionObject();
 //    userCB->setCompletionObject(compUser);
@@ -103,16 +106,16 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
 //    loadOptions("DefaultConfig");
 
 //    connect(aboutPB,SIGNAL(clicked()),this,SLOT(about()));
-//    connect(optionsPB,SIGNAL(clicked()),this,SLOT(options()));
-//    connect(morePB,SIGNAL(clicked()),this,SLOT(moreOptions()));
+     connect(ui->btnShowOptions,SIGNAL(clicked()),this,SLOT(options()));
+     connect(ui->btnMore,SIGNAL(clicked()),this,SLOT(moreOptions()));
 
 //    connect(hostTB,SIGNAL(clicked()),this,SLOT(hostEditor()));
 //    connect(userTB,SIGNAL(clicked()),this,SLOT(userEditor()));
 //    connect(cancelPB,SIGNAL(clicked()),this,SLOT(cancelEditor()));
 //    connect(okPB,SIGNAL(clicked()),this,SLOT(okEditor()));
 
-    connect(ui->btnConnect,SIGNAL(clicked()),this,SLOT(ssh()));
-    connect(ui->btnShowOptions,SIGNAL(clicked()),this,SLOT(saveAsDefault()));
+ // connect(ui->btnConnect,SIGNAL(clicked()),this,SLOT(ssh()));
+ // connect(ui->btnShowOptions,SIGNAL(clicked()),this,SLOT(saveAsDefault()));
     connect(ui->btnQuit,SIGNAL(clicked()),qApp,SLOT(quit()));
 
 //    config->setGroup("General");
@@ -132,6 +135,7 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
 
 QtSSHUi::~QtSSHUi()
 {
+    delete m_config;
     delete ui;
 }
 
@@ -154,30 +158,29 @@ QString QtSSHUi::cmd()
 
 void QtSSHUi::options()
 {
-    //    editorF->hide();//to be sure
-    //    opt=!opt;
-    //    if(opt) {
-    //        optionsPB->setText(tr("Hide options"));
-    //        optionsGB->show();
-    //    } else   {
-    //        optionsPB->setText(tr("Show options"));
-    //        optionsGB->hide();
-    //    }
-}
+    ui->frmMore->hide();//to be sure
+    m_opt=!m_opt;
+    if(m_opt) {
+        ui->btnShowOptions->setText(tr("Hide options"));
+        ui->grbOptions->show();
+     } else   {
+        ui->btnShowOptions->setText(tr("Show options"));
+        ui->grbOptions->hide();
+     }
+ }
 
 void QtSSHUi::moreOptions()
 {
-    //  mopt=!mopt;
-    //  if(mopt)
-    //    {
-    //      morePB->setText(tr("Less..."));
-    //      moreF->show();
-    //    }
-    // else
-    //   {
-    //    morePB->setText(tr("More.."));
-    //    moreF->hide();
-    //  }
+      m_mopt=!m_mopt;
+      if(m_mopt)  {
+          ui->btnMore->setText(tr("Less..."));
+          ui->frmMore->show();
+        }
+     else
+       {
+        ui->btnMore->setText(tr("More.."));
+        ui->frmMore->hide();
+      }
 
  }
 
@@ -478,9 +481,9 @@ void QtSSHUi::saveLists()
         hostData.append(ui->cmb_hosts->itemText(i));
     }
 
-    //config->setGroup("Host List");
-    //config->writeEntry("Host",ui->cmb_hosts->);
-//    config->setGroup(ui->cmb_hosts->currentText()+"-User List");
+    m_config->setGroup("Host List");
+    // m_config->writeEntry("Host",ui->cmb_hosts->it);
+    m_config->setGroup(ui->cmb_hosts->currentText()+"-User List");
 //    config->writeEntry("User",compUser->items());
 }
 

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>751</width>
-    <height>786</height>
+    <height>839</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -27,7 +27,7 @@
     <number>6</number>
    </property>
    <item row="2" column="0">
-    <widget class="QGroupBox" name="optionsGB">
+    <widget class="QGroupBox" name="grbOptions">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
        <horstretch>0</horstretch>
@@ -311,14 +311,14 @@ connections, but will only slow down things on fast networks. The default value 
          <number>0</number>
         </property>
         <item>
-         <widget class="QPushButton" name="savePB">
+         <widget class="QPushButton" name="btnSaveAsDefault">
           <property name="text">
            <string>Save as default configuration</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="morePB">
+         <widget class="QPushButton" name="btnMore">
           <property name="text">
            <string>More...</string>
           </property>
@@ -937,7 +937,7 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
     </layout>
    </item>
    <item row="3" column="0">
-    <widget class="QFrame" name="editorF">
+    <widget class="QFrame" name="frmMore">
      <property name="lineWidth">
       <number>0</number>
      </property>
@@ -979,13 +979,7 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
        </spacer>
       </item>
       <item row="0" column="0" rowspan="3">
-       <widget class="QTabWidget" name="userHostELB">
-        <widget class="QWidget" name="userHostELBPage1">
-         <attribute name="title">
-          <string/>
-         </attribute>
-        </widget>
-       </widget>
+       <widget class="QListView" name="listEditor"/>
       </item>
      </layout>
     </widget>
@@ -1025,8 +1019,8 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
   <tabstop>commandLE</tabstop>
   <tabstop>saveCB</tabstop>
   <tabstop>aboutPB</tabstop>
-  <tabstop>savePB</tabstop>
-  <tabstop>morePB</tabstop>
+  <tabstop>btnSaveAsDefault</tabstop>
+  <tabstop>btnMore</tabstop>
   <tabstop>bCB</tabstop>
   <tabstop>bLE</tabstop>
   <tabstop>c1CB</tabstop>
@@ -1060,7 +1054,7 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
   <connection>
    <sender>btnShowOptions</sender>
    <signal>toggled(bool)</signal>
-   <receiver>optionsGB</receiver>
+   <receiver>grbOptions</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
