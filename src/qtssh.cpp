@@ -31,8 +31,10 @@
 
 // optionsGB -> groupbox -> grbOptions
 // optionsPB -> pushButton --> btnShowOptions
-// editorF --> frame --> frmMore
+// editorF --> frame --> frmMore ???
 // savePB --> pushbutton --> btnSaveAsDefault
+// hostsCB --> cmbHosts
+// userCB --> cmbUserName
 
 QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
 {
@@ -114,9 +116,11 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
 //    connect(cancelPB,SIGNAL(clicked()),this,SLOT(cancelEditor()));
 //    connect(okPB,SIGNAL(clicked()),this,SLOT(okEditor()));
 
- // connect(ui->btnConnect,SIGNAL(clicked()),this,SLOT(ssh()));
+    connect(ui->btnConnect,SIGNAL(clicked()),this,SLOT(ssh()));
  // connect(ui->btnShowOptions,SIGNAL(clicked()),this,SLOT(saveAsDefault()));
     connect(ui->btnQuit,SIGNAL(clicked()),qApp,SLOT(quit()));
+    connect(ui->cmbHosts,SIGNAL(editTextChanged(QString)), this, SLOT(checkTextChanged(QString)));
+    connect(ui->cmbUserName,SIGNAL(editTextChanged(QString)), this, SLOT(checkTextChanged(QString)));
 
 //    config->setGroup("General");
 //    hostCB->setCurrentText(config->readEntry("LastHost"));
@@ -131,6 +135,8 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
 //    //compUser->setCompletionMode((KGlobalSettings::Completion)mode);
 //    userCB->setCompletionMode((KGlobalSettings::Completion)mode);
 
+     checkTextChanged(QString());
+
 }
 
 QtSSHUi::~QtSSHUi()
@@ -141,7 +147,7 @@ QtSSHUi::~QtSSHUi()
 
 QString QtSSHUi::userathost()
 {
-    return QString(ui->cmb_username->currentText()+"@"+ui->cmb_hosts->currentText());
+    return QString(ui->cmbUserName->currentText()+"@"+ui->cmbHosts->currentText());
 }
 
 QString QtSSHUi::cmd()
@@ -150,7 +156,7 @@ QString QtSSHUi::cmd()
     QString ret;
     QStringList para=parameters();
     n=para.count();
-    ret="ssh "+ui->cmb_username->currentText()+"@"+ui->cmb_hosts->currentText()+" ";
+    ret="ssh "+ui->cmbUserName->currentText()+"@"+ui->cmbHosts->currentText()+" ";
     for(int i=0;i<n;i++)
         ret+=para[i] + " ";
     return ret;
@@ -184,6 +190,12 @@ void QtSSHUi::moreOptions()
 
  }
 
+void QtSSHUi::checkTextChanged(const QString &)
+{
+    bool ok = !ui->cmbHosts->currentText().isEmpty()
+              && !ui->cmbUserName->currentText().isEmpty();
+    ui->btnConnect->setEnabled(ok);
+}
 
 void QtSSHUi::about()
 {
@@ -193,10 +205,10 @@ void QtSSHUi::about()
 
 void QtSSHUi::ssh()
 {
-//    config->setGroup("General");
-//    config->writeEntry("LastHost",hostCB->currentText());
-//    config->writeEntry("HostCompletionMode",compHost->completionMode());
-//    config->writeEntry("UserCompletionMode",compUser->completionMode());
+    m_config->setGroup("General");
+    m_config->writeEntry("LastHost",ui->cmbHosts->currentText());
+//    m_config->writeEntry("HostCompletionMode",compHost->completionMode());
+//    m_ config->writeEntry("UserCompletionMode",compUser->completionMode());
 
 //    compUser->addItem(userCB->currentText());
 //    compHost->addItem(hostCB->currentText());
@@ -206,18 +218,16 @@ void QtSSHUi::ssh()
 
 //    config->sync();
 
-//    // if(KCmdLineArgs::isSet("die") )
-//    //KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-
-//    if(args->isSet("die") )
-//        qApp->exit(1);
-//    else  {
+    QStringList arglist = QApplication::arguments();
+    if(arglist.contains("die") )
+        qApp->exit(1);
+    else  {
 //        QString caption="KSSH: %1" ;
 //        QString terminal = KGlobal::config()->readEntry("TerminalApplication", "konsole");
 //        QString ex(terminal+" -T \""+caption.arg(userathost())+ "\"  -e "+cmd());
 //        KRun::runCommand((const char *)ex.local8Bit());
 //        if(!args->isSet("keepalive") ) qApp->quit();
-//    }
+    }
 }
 
 void QtSSHUi::loadHosts()
@@ -476,14 +486,14 @@ return ret;
 void QtSSHUi::saveLists()
 {
     QStringList hostData;
-    int count = ui->cmb_hosts->count();
+    int count = ui->cmbHosts->count();
     for (int i =0; i < count; i++)   {
-        hostData.append(ui->cmb_hosts->itemText(i));
+        hostData.append(ui->cmbHosts->itemText(i));
     }
 
     m_config->setGroup("Host List");
-    // m_config->writeEntry("Host",ui->cmb_hosts->it);
-    m_config->setGroup(ui->cmb_hosts->currentText()+"-User List");
+    // m_config->writeEntry("Host",ui->cmbHosts->it);
+    m_config->setGroup(ui->cmbHosts->currentText()+"-User List");
 //    config->writeEntry("User",compUser->items());
 }
 
@@ -1061,8 +1071,6 @@ x  config->writeEntry("FLE",FLE->text());
 //     RLE->setText(Lstr);
 //}
 
-
-
 //if(config->hasKey("-X"))
 // {
 //    setFlag=config->readBoolEntry("-X");
@@ -1280,7 +1288,7 @@ x  config->writeEntry("FLE",FLE->text());
 
 void QtSSHUi::userFor(const QString& host)
 {
-//  userCB->clear();
+    ui->cmbUserName->clear();
 //  compUser->clear();
 
 //  config->setGroup(host+"-User List");

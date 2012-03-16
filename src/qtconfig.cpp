@@ -21,7 +21,7 @@
 QtConfig::QtConfig()
 {
     m_settings = new QSettings("qtssh.ini", QSettings::IniFormat );
-    qDebug () << m_settings->fileName();
+//    qDebug () << m_settings->fileName();
     m_currentGroup = "";
 }
 
@@ -41,6 +41,5 @@ void QtConfig::writeEntry(const QString &wk, const QString& data)
         m_settings->beginGroup(m_currentGroup);
         m_settings->setValue(wk,data);
         m_settings->endGroup();
-        qDebug () << "writeentry";
     }
 }

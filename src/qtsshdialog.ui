@@ -820,7 +820,7 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="cmb_hosts">
+      <widget class="QComboBox" name="cmbHosts">
        <property name="editable">
         <bool>true</bool>
        </property>
@@ -872,7 +872,7 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="cmb_username">
+      <widget class="QComboBox" name="cmbUserName">
        <property name="editable">
         <bool>true</bool>
        </property>

@@ -19,11 +19,12 @@
 //#include <kaboutdata.h>
 //#include <klocale.h>
 
+#include <QDebug>
 #include <QApplication>
 #include <QVector>
 #include <unistd.h>
-#include "qtssh.h"
 #include <stdio.h>
+#include "qtssh.h"
 
 // http://www.kde.gr.jp/~ichi/qt/designer-manual-6.html
 
@@ -56,6 +57,7 @@ int main(int argc, char *argv[])
     int ret=a.exec();
 
     if(ret==1) {  //Go ssh...
+        qDebug () << "go ssh";
         QString uah;
         uah=kssh->userathost().toLocal8Bit();
 //        QVector<char> vec;

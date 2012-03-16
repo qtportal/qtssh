@@ -73,6 +73,8 @@ private:
     void okEditor();
     void cancelEditor();
 
+    void checkTextChanged (const QString&);
+
 private:
     QStringList hosts;
     bool m_opt;
