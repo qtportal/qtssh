@@ -57,25 +57,28 @@ int main(int argc, char *argv[])
     int ret=a.exec();
 
     if(ret==1) {  //Go ssh...
-        qDebug () << "go ssh";
         QString uah;
         uah=kssh->userathost().toLocal8Bit();
-//        QVector<char> vec;
-//        int n;
-//        QString *q;
-//        QStringList para=kssh->parameters();
-//        vec.resize(n=(para.count()+3));
-//        vec.insert(0,"ssh");
-//        // vec.insert(1,uah.toLocal8Bit());
-//        for(int i=2;i<n-1;i++) {
-//            q = new QString(para[i-2].toLocal8Bit());
-//            vec.insert(i,(const char*)*q->to);
-//            //     fprintf(stderr,"%d %d %s\n",n,i,vec[i]);
-//            //    usleep(100000);
-//        }
-//        vec.insert(n-1,0);
-//        printf("\033]0;%s... \007\n", (const char *)uah);
-//        return execvp("ssh",vec.data());
+        QByteArray data;
+        data.append("ssh ");
+
+        QVector<char> vec;
+        int n;
+        QString *q;
+        QStringList para=kssh->parameters();
+        vec.resize(n=(para.count()+3));
+//        char ssh[] = {'s', 's', 'h'};
+//        vec.insert(0,*ssh);
+        // vec.insert(1,(char)uah.toStdString().c_str());
+        for(int i=2;i<n-1;i++) {
+            q = new QString(para[i-2].toLocal8Bit());
+           // vec.insert(i,(const char*)*q->;
+            //     fprintf(stderr,"%d %d %s\n",n,i,vec[i]);
+            //    usleep(100000);
+        }
+        vec.insert(n-1,0);
+        printf("\033]0;%s... \007\n", (const char *)uah);
+        return execvp("ssh",vec.data());
     }
     return 0;
 }
