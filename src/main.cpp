@@ -20,6 +20,7 @@
 //#include <klocale.h>
 
 #include <QDebug>
+#include <QProcess>
 #include <QApplication>
 #include <QVector>
 #include <unistd.h>
@@ -52,33 +53,16 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
     QtSSHUi *kssh = new QtSSHUi();
-    //a.setMainWidget(kssh);
     kssh->show();
     int ret=a.exec();
 
     if(ret==1) {  //Go ssh...
         QString uah;
         uah=kssh->userathost().toLocal8Bit();
-        QByteArray data;
-        data.append("ssh ");
-
-        QVector<char> vec;
-        int n;
-        QString *q;
         QStringList para=kssh->parameters();
-        vec.resize(n=(para.count()+3));
-//        char ssh[] = {'s', 's', 'h'};
-//        vec.insert(0,*ssh);
-        // vec.insert(1,(char)uah.toStdString().c_str());
-        for(int i=2;i<n-1;i++) {
-            q = new QString(para[i-2].toLocal8Bit());
-           // vec.insert(i,(const char*)*q->;
-            //     fprintf(stderr,"%d %d %s\n",n,i,vec[i]);
-            //    usleep(100000);
-        }
-        vec.insert(n-1,0);
-        printf("\033]0;%s... \007\n", (const char *)uah);
-        return execvp("ssh",vec.data());
+        para.insert(0, uah);
+        QProcess sshProcess;
+        sshProcess.start("ssh", para);
     }
-    return 0;
+    return ret;
 }
