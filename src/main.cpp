@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
         QString uah;
         uah=kssh->userathost().toLocal8Bit();
         QStringList para;//=kssh->parameters();
-        para.append("ssh ollwalli@192.168.1.111");
+        para.append("ssh x@192.168.1.111");
         // para.insert(0, uah);
         qDebug() << "one " << para;
 //        QProcess *sshProcess = new QProcess();

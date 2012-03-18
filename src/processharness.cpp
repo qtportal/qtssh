@@ -38,8 +38,9 @@ ProcessHarness::~ProcessHarness()
     delete m_process;
     }
 
-void ProcessHarness::startProscess(const QString& args)
+void ProcessHarness::startProcess(const QString& args)
 {
+    QString program;
     QStringList arguments;
     arguments.append(args.trimmed());
     m_process->start(program, arguments);
