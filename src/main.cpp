@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
 //        QProcess *sshProcess = new QProcess();
 //        sshProcess->start("gnome-terminal", para);
         qDebug () << "sdd";
-        system("ssh ollwalli@192.168.1.111");
+        system("ssh ewew@192.168.1.111");
         //delete sshProcess;
         //return execvp("ssh", "ollwalli@192.168.1.111");
     }
