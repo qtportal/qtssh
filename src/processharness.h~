@@ -1,0 +1,29 @@
+#ifndef PROCESSHARNESS_H
+#define PROCESSHARNESS_H
+
+#include <QObject>
+#include <QProcess>
+
+class ProcessHarness : public QObject
+{
+    Q_OBJECT
+public:
+    ProcessHarness(QObject *parent = 0);
+    ~ProcessHarness();
+
+signals:
+    void processDied (ProcessHarness* p);
+
+public:
+    void startVlcPlayer(const QString& metaUrl);
+
+public slots:
+    void stateChanged(QProcess::ProcessState state);
+    void error(QProcess::ProcessError error);
+    void finished(int st, QProcess::ExitStatus es);
+private:
+    QProcess*   m_process;
+
+};
+
+#endif // PROCESSHARNESS_H
