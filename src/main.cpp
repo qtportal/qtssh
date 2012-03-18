@@ -59,10 +59,16 @@ int main(int argc, char *argv[])
     if(ret==1) {  //Go ssh...
         QString uah;
         uah=kssh->userathost().toLocal8Bit();
-        QStringList para=kssh->parameters();
-        para.insert(0, uah);
-        QProcess sshProcess;
-        sshProcess.start("ssh", para);
+        QStringList para;//=kssh->parameters();
+        para.append("ssh ollwalli@192.168.1.111");
+        // para.insert(0, uah);
+        qDebug() << "one " << para;
+//        QProcess *sshProcess = new QProcess();
+//        sshProcess->start("gnome-terminal", para);
+        qDebug () << "sdd";
+        system("ssh ollwalli@192.168.1.111");
+        //delete sshProcess;
+        //return execvp("ssh", "ollwalli@192.168.1.111");
     }
     return ret;
 }
