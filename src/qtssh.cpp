@@ -19,6 +19,7 @@
 #include <QLocale>
 #include <QLineEdit>
 #include <QListWidget>
+#include <QDesktopWidget>
 #include <QDebug>
 #include <QToolButton>
 #include <QPushButton>
@@ -59,9 +60,8 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
     m_mopt=false;
     ui->frmMore->hide();
 
-
-//    // show();
-    QSize s=size();
+    // show();
+//    QSize s=size();
 //    QPoint p(s.width(),s.height());
 //    QPoint po=pos();
 //    QDesktopWidget *d = QApplication::desktop();
@@ -76,7 +76,7 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
 //    if(x<0) po.setX(0);
 //    if(y<0) po.setY(0);
 
-//    move(po);
+//     move(po);
      ui->grbOptions->hide();
      ui->moreF->hide();
 
@@ -116,13 +116,13 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
      connect(ui->btnShowOptions,SIGNAL(clicked()),this,SLOT(options()));
      connect(ui->btnMore,SIGNAL(clicked()),this,SLOT(moreOptions()));
 
-//    connect(hostTB,SIGNAL(clicked()),this,SLOT(hostEditor()));
+     connect(ui->btnEditHosts,SIGNAL(clicked()),this,SLOT(hostEditor()));
 //    connect(userTB,SIGNAL(clicked()),this,SLOT(userEditor()));
 //    connect(cancelPB,SIGNAL(clicked()),this,SLOT(cancelEditor()));
 //    connect(okPB,SIGNAL(clicked()),this,SLOT(okEditor()));
 
     connect(ui->btnConnect,SIGNAL(clicked()),this,SLOT(ssh()));
- // connect(ui->btnShowOptions,SIGNAL(clicked()),this,SLOT(saveAsDefault()));
+    connect(ui->btnSaveAsDefault,SIGNAL(clicked()),this,SLOT(saveAsDefault()));
     connect(ui->btnQuit,SIGNAL(clicked()),qApp,SLOT(quit()));
     connect(ui->cmbHosts,SIGNAL(editTextChanged(QString)), this, SLOT(checkTextChanged(QString)));
     connect(ui->cmbUserName,SIGNAL(editTextChanged(QString)), this, SLOT(checkTextChanged(QString)));
@@ -1354,7 +1354,7 @@ void QtSSHUi::hostEditor()
 
 // uEditor=false;
 // hEditor=true;
-// userHostELB->setTitle(i18n("Hosts:"));
+   //ui->listUserHostEditor->setTitle(i18n("Hosts:"));
 // userHostELB->insertStringList(compHost->items());
 // optionsGB->hide();
 // editorF->show();

@@ -827,7 +827,7 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="hostTB">
+      <widget class="QToolButton" name="btnEditHosts">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
          <horstretch>0</horstretch>
@@ -879,7 +879,7 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="userTB">
+      <widget class="QToolButton" name="btnEditUsers">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
          <horstretch>0</horstretch>
