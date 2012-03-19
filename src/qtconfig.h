@@ -26,10 +26,14 @@ class QtConfig : public QObject
 {
 public:
     QtConfig();
+    ~QtConfig ();
 
 public:
     // Set write entry
     void writeEntry (const QString&, const QString&);
+    // Write group list
+    void writeEntry (const QString&, const QStringList&);
+    QString readEntry (const QString& key) const;
     // Set active group
     void setGroup (const QString&);
 

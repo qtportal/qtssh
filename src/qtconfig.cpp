@@ -15,14 +15,20 @@
 // Boston, MA 02110-1301, USA.
 
 #include <QDebug>
+#include <QStringList>
 #include <QSettings>
 #include "qtconfig.h"
 
 QtConfig::QtConfig()
 {
     m_settings = new QSettings("qtssh.ini", QSettings::IniFormat );
-//    qDebug () << m_settings->fileName();
+    // qDebug () << m_settings->fileName();
     m_currentGroup = "";
+}
+
+QtConfig::~QtConfig ()
+{
+    delete m_settings;
 }
 
 void QtConfig::setGroup(const QString &sg)
@@ -35,11 +41,42 @@ void QtConfig::setGroup(const QString &sg)
 
 }
 
+QString QtConfig::readEntry(const QString& key) const
+{
+    QVariant data;
+    if (m_currentGroup.length())  {
+        m_settings->beginGroup(m_currentGroup);
+        qDebug () << key;
+        if (m_settings->contains(key))  {
+            data = m_settings->value(key);
+        }
+        m_settings->endGroup();
+    }
+    return data.toString();
+}
+
+
+void QtConfig::writeEntry(const QString &wk, const QStringList& list)
+{
+    if (m_currentGroup.length())  {
+        m_settings->beginGroup(m_currentGroup);
+        m_settings->beginWriteArray(wk);
+        for (int i = 0; i < list.size(); ++i) {
+            m_settings->setArrayIndex(i);
+            m_settings->setValue(wk, list.at(i));
+        }
+        m_settings->endArray();
+        m_settings->endGroup();
+        m_settings->sync();
+    }
+}
+
 void QtConfig::writeEntry(const QString &wk, const QString& data)
 {
     if (m_currentGroup.length())  {
         m_settings->beginGroup(m_currentGroup);
         m_settings->setValue(wk,data);
         m_settings->endGroup();
+        m_settings->sync();
     }
 }

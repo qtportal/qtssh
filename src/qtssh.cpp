@@ -18,6 +18,7 @@
 
 #include <QLocale>
 #include <QLineEdit>
+#include <QListWidget>
 #include <QDebug>
 #include <QToolButton>
 #include <QPushButton>
@@ -27,6 +28,7 @@
 #include <QCheckBox>
 #include <QSpinBox>
 
+#include "qtsshconstants.h"
 #include "qtssh.h"
 
 // optionsGB -> groupbox -> grbOptions
@@ -35,6 +37,8 @@
 // savePB --> pushbutton --> btnSaveAsDefault
 // hostsCB --> cmbHosts
 // userCB --> cmbUserName
+// compUser -->
+// moreF --> frame with more options
 
 QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
 {
@@ -74,11 +78,12 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
 
 //    move(po);
      ui->grbOptions->hide();
-//    moreF->hide();
+     ui->moreF->hide();
 
     adjustSize();
 
-//    compUser = new KCompletion(); // userCB->completionObject();
+//    compUser = new KCompletion();
+    // userCB->completionObject();
 //    userCB->setCompletionObject(compUser);
 
 //    QDebug() << compUser << endl;
@@ -87,9 +92,9 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
 //    // compHost = hostCB->completionObject();
 //    hostCB->setCompletionObject(compHost);
 
-//    // hostCB->setFocus();
-//    //  hostCB->clearEdit();
-//    //  hostCB->lineEdit()->installEventFilter( this );
+      ui->cmbHosts->setFocus();
+      ui->cmbHosts->clearEditText();
+      // ui->cmbHosts->lineEdit()->installEventFilter( this );
 
 
 //    QDebug() << compHost << endl;
@@ -100,10 +105,10 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
 //    // connect(hostCB,SIGNAL(highlighted(const QString&)),this,SLOT(userFor(const QString&)));
 //    connect(compHost,SIGNAL(match(const QString&)),this,SLOT(userFor(const QString&)));
 
-//    userCB->insertItem("");
-//    hostCB->insertItem("");
+    ui->cmbUserName->insertItem(0,"");
+    ui->cmbHosts->insertItem(0,"");
 
-//    loadHosts();
+    loadHosts();
 
 //    loadOptions("DefaultConfig");
 
@@ -122,8 +127,9 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
     connect(ui->cmbHosts,SIGNAL(editTextChanged(QString)), this, SLOT(checkTextChanged(QString)));
     connect(ui->cmbUserName,SIGNAL(editTextChanged(QString)), this, SLOT(checkTextChanged(QString)));
 
-//    config->setGroup("General");
-//    hostCB->setCurrentText(config->readEntry("LastHost"));
+    m_config->setGroup("General");
+    int count = ui->cmbHosts->count();
+    ui->cmbHosts->insertItem(count,m_config->readEntry("LastHost"));
 //    int def=KGlobalSettings::completionMode();
 //    config->setGroup("General");
 //    int mode=config->readNumEntry("HostCompletionMode",def);
@@ -180,12 +186,12 @@ void QtSSHUi::moreOptions()
       m_mopt=!m_mopt;
       if(m_mopt)  {
           ui->btnMore->setText(tr("Less..."));
-          ui->frmMore->show();
+          ui->moreF->show();
         }
      else
        {
         ui->btnMore->setText(tr("More.."));
-        ui->frmMore->hide();
+        ui->moreF->hide();
       }
 
  }
@@ -206,7 +212,8 @@ void QtSSHUi::about()
 void QtSSHUi::ssh()
 {
     m_config->setGroup("General");
-    m_config->writeEntry("LastHost",ui->cmbHosts->currentText());
+    m_config->writeEntry("LastHost",ui->cmbHosts->currentText());  
+
 //    m_config->writeEntry("HostCompletionMode",compHost->completionMode());
 //    m_ config->writeEntry("UserCompletionMode",compUser->completionMode());
 
@@ -215,8 +222,6 @@ void QtSSHUi::ssh()
 
 //    if(saveCB->isChecked())
 //        saveOptions(hostCB->currentText()+"-Options");
-
-//    config->sync();
 
     QStringList arglist = QApplication::arguments();
     if(arglist.contains("die") )
@@ -232,10 +237,10 @@ void QtSSHUi::ssh()
 
 void QtSSHUi::loadHosts()
 {
-//    config->setGroup("Host List");
-//    hosts=config->readListEntry("Host");
-//    compHost->setItems(hosts);
-//    hostCB->insertStringList(hosts);
+    m_config->setGroup(GroupHostList);
+    //m_hosts=m_config->readListEntry(EntryHosts);
+    int count = ui->cmbHosts->count ();
+    ui->cmbHosts->insertItems(count, m_hosts);
 }
 
 void QtSSHUi::saveAsDefault()
@@ -492,9 +497,9 @@ void QtSSHUi::saveLists()
     }
 
     m_config->setGroup("Host List");
-    // m_config->writeEntry("Host",ui->cmbHosts->it);
+    // m_config->writeEntry("Host",ui->cmbHosts->itemData());
     m_config->setGroup(ui->cmbHosts->currentText()+"-User List");
-//    config->writeEntry("User",compUser->items());
+    // m_config->writeEntry("User",compUser->items());
 }
 
 
@@ -1339,6 +1344,9 @@ void QtSSHUi::userFor(const QString& host)
 
 void QtSSHUi::hostEditor()
 {
+    // ui->listEditor->reset();
+    //ui->listUserHostEditor->
+
 // userHostELB->clear();
 
 //userHostELB->listBox()->clear();

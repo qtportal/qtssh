@@ -76,7 +76,7 @@ private:
     void checkTextChanged (const QString&);
 
 private:
-    QStringList hosts;
+    QStringList m_hosts;
     bool m_opt;
     bool m_mopt;
     bool uEditor;

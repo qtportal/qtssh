@@ -52,23 +52,21 @@ int main(int argc, char *argv[])
 //  KCmdLineArgs::addCmdLineOptions( options ); // Add our own options.
 
     QApplication a(argc, argv);
-    QtSSHUi *kssh = new QtSSHUi();
-    kssh->show();
+    QtSSHUi kssh;
+    kssh.show();
     int ret=a.exec();
 
     if(ret==1) {  //Go ssh...
         QString uah;
-        uah=kssh->userathost().toLocal8Bit();
+        uah=kssh.userathost().toLocal8Bit();
         QStringList para;//=kssh->parameters();
-        para.append("ssh x@192.168.1.111");
         // para.insert(0, uah);
         qDebug() << "one " << para;
 //        QProcess *sshProcess = new QProcess();
 //        sshProcess->start("gnome-terminal", para);
         qDebug () << "sdd";
-        system("ssh ewew@192.168.1.111");
         //delete sshProcess;
-        //return execvp("ssh", "ollwalli@192.168.1.111");
+        //return execvp("ssh", "*@*");
     }
     return ret;
 }

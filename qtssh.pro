@@ -11,7 +11,8 @@ FORMS = src/qtsshdialog.ui
 HEADERS +=  src/qtssh.h  \
             src/qtfilechooser.h \
             src/qtconfig.h \
-            src/processharness.h
+            src/processharness.h \
+    src/qtsshconstants.h
 
 SOURCES +=  src/qtssh.cpp \
             src/main.cpp \
