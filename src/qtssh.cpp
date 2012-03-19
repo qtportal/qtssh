@@ -58,7 +58,9 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
 
     m_opt=false;
     m_mopt=false;
-    ui->frmMore->hide();
+
+
+    ui->frmHostUser->hide();
 
     // show();
 //    QSize s=size();
@@ -109,17 +111,16 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
     ui->cmbHosts->insertItem(0,"");
 
     loadHosts();
-
-//    loadOptions("DefaultConfig");
+    loadOptions(GroupDefaultConfig);
 
 //    connect(aboutPB,SIGNAL(clicked()),this,SLOT(about()));
      connect(ui->btnShowOptions,SIGNAL(clicked()),this,SLOT(options()));
      connect(ui->btnMore,SIGNAL(clicked()),this,SLOT(moreOptions()));
 
      connect(ui->btnEditHosts,SIGNAL(clicked()),this,SLOT(hostEditor()));
-//    connect(userTB,SIGNAL(clicked()),this,SLOT(userEditor()));
-//    connect(cancelPB,SIGNAL(clicked()),this,SLOT(cancelEditor()));
-//    connect(okPB,SIGNAL(clicked()),this,SLOT(okEditor()));
+     connect(ui->btnEditUsers,SIGNAL(clicked()),this,SLOT(userEditor()));
+     connect(ui->cancelPB,SIGNAL(clicked()),this,SLOT(cancelEditor()));
+     connect(ui->okPB,SIGNAL(clicked()),this,SLOT(okEditor()));
 
     connect(ui->btnConnect,SIGNAL(clicked()),this,SLOT(ssh()));
     connect(ui->btnSaveAsDefault,SIGNAL(clicked()),this,SLOT(saveAsDefault()));
@@ -170,7 +171,7 @@ QString QtSSHUi::cmd()
 
 void QtSSHUi::options()
 {
-    ui->frmMore->hide();//to be sure
+    ui->frmHostUser->hide();//to be sure
     m_opt=!m_opt;
     if(m_opt) {
         ui->btnShowOptions->setText(tr("Hide options"));
@@ -240,7 +241,8 @@ void QtSSHUi::loadHosts()
     m_config->setGroup(GroupHostList);
     //m_hosts=m_config->readListEntry(EntryHosts);
     int count = ui->cmbHosts->count ();
-    ui->cmbHosts->insertItems(count, m_hosts);
+    if (count)
+        ui->cmbHosts->insertItems(count, m_hosts);
 }
 
 void QtSSHUi::saveAsDefault()
@@ -1346,7 +1348,7 @@ void QtSSHUi::hostEditor()
 {
     // ui->listEditor->reset();
     //ui->listUserHostEditor->
-
+    ui->frmHostUser->show ();
 // userHostELB->clear();
 
 //userHostELB->listBox()->clear();
@@ -1374,7 +1376,7 @@ void QtSSHUi::userEditor()
 // userHostELB->setTitle(i18n("User list for %1:").arg(host));
 // userHostELB->insertStringList(compUser->items());
 // optionsGB->hide();
-// editorF->show();
+    ui->frmHostUser->show();
 }
 
 void QtSSHUi::okEditor()
@@ -1393,6 +1395,7 @@ void QtSSHUi::okEditor()
     // hostCB->insertStringList(lista);
     // compHost->setItems(lista);
     // }
+    ui->frmHostUser->hide();
 
     //editorF->hide();
 
@@ -1406,7 +1409,9 @@ void QtSSHUi::okEditor()
 void QtSSHUi::cancelEditor()
 {
 // editorF->hide();
-//// userHostELB->clear();
+ ui->frmHostUser->hide();
+
+    //// userHostELB->clear();
 
 //userHostELB->listBox()->clear();
 //userHostELB->lineEdit()->clear();

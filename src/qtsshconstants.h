@@ -3,6 +3,8 @@
 
 #include <QString>
 
+static const QString GroupDefaultConfig = "DefaultConfig";
+
 // General group
 static const QString GroupGeneral = "General";
 
