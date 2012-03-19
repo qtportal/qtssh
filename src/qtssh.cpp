@@ -127,9 +127,9 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
     connect(ui->cmbHosts,SIGNAL(editTextChanged(QString)), this, SLOT(checkTextChanged(QString)));
     connect(ui->cmbUserName,SIGNAL(editTextChanged(QString)), this, SLOT(checkTextChanged(QString)));
 
-    m_config->setGroup("General");
+    m_config->setGroup(GroupGeneral);
     int count = ui->cmbHosts->count();
-    ui->cmbHosts->insertItem(count,m_config->readEntry("LastHost"));
+    ui->cmbHosts->insertItem(count,m_config->readEntry(EntryLastHost));
 //    int def=KGlobalSettings::completionMode();
 //    config->setGroup("General");
 //    int mode=config->readNumEntry("HostCompletionMode",def);
@@ -496,7 +496,7 @@ void QtSSHUi::saveLists()
         hostData.append(ui->cmbHosts->itemText(i));
     }
 
-    m_config->setGroup("Host List");
+    m_config->setGroup(GroupHostList);
     // m_config->writeEntry("Host",ui->cmbHosts->itemData());
     m_config->setGroup(ui->cmbHosts->currentText()+"-User List");
     // m_config->writeEntry("User",compUser->items());
@@ -1414,4 +1414,3 @@ void QtSSHUi::cancelEditor()
 // uEditor=false;
 // hEditor=false;
 }
-
