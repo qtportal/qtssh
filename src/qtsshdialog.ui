@@ -937,12 +937,21 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
     </layout>
    </item>
    <item row="3" column="0">
-    <widget class="QFrame" name="frmHostUser">
-     <property name="lineWidth">
-      <number>0</number>
+    <widget class="QGroupBox" name="frmHostUser">
+     <property name="title">
+      <string>Hosts</string>
      </property>
      <layout class="QGridLayout">
-      <property name="margin">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>10</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
        <number>0</number>
       </property>
       <property name="spacing">

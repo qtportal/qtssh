@@ -40,6 +40,7 @@
 // userCB --> cmbUserName
 // compUser -->
 // moreF --> frame with more options
+// userHostELB --> KEditListBox --> Users and Hosts editing (adding and removing items.
 
 QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
 {
@@ -79,48 +80,31 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
 //    if(y<0) po.setY(0);
 
 //     move(po);
-     ui->grbOptions->hide();
-     ui->moreF->hide();
+    ui->grbOptions->hide();
+    ui->moreF->hide();
 
     adjustSize();
 
-//    compUser = new KCompletion();
-    // userCB->completionObject();
-//    userCB->setCompletionObject(compUser);
-
-//    QDebug() << compUser << endl;
-
-//    compHost= new KCompletion();
-//    // compHost = hostCB->completionObject();
-//    hostCB->setCompletionObject(compHost);
-
-      ui->cmbHosts->setFocus();
-      ui->cmbHosts->clearEditText();
-      // ui->cmbHosts->lineEdit()->installEventFilter( this );
-
-
-//    QDebug() << compHost << endl;
-
-//    // connect(userCB,SIGNAL(returnPressed(const QString&)),compUser,SLOT(addItem(const QString&)));
-//    // connect(hostCB,SIGNAL(returnPressed(const QString&)),compHost,SLOT(addItem(const QString&)));
-//    connect(hostCB,SIGNAL(textChanged(const QString&)),this,SLOT(userFor(const QString&)));
-//    // connect(hostCB,SIGNAL(highlighted(const QString&)),this,SLOT(userFor(const QString&)));
-//    connect(compHost,SIGNAL(match(const QString&)),this,SLOT(userFor(const QString&)));
+    ui->cmbHosts->setFocus();
+    ui->cmbHosts->clearEditText();
+    // ui->cmbHosts->lineEdit()->installEventFilter( this );
 
     ui->cmbUserName->insertItem(0,"");
     ui->cmbHosts->insertItem(0,"");
 
+    ui->cmbHosts->insertItem(1,"192.168.1.1");
+
     loadHosts();
     loadOptions(GroupDefaultConfig);
 
-//    connect(aboutPB,SIGNAL(clicked()),this,SLOT(about()));
-     connect(ui->btnShowOptions,SIGNAL(clicked()),this,SLOT(options()));
-     connect(ui->btnMore,SIGNAL(clicked()),this,SLOT(moreOptions()));
+    //    connect(aboutPB,SIGNAL(clicked()),this,SLOT(about()));
+    connect(ui->btnShowOptions,SIGNAL(clicked()),this,SLOT(options()));
+    connect(ui->btnMore,SIGNAL(clicked()),this,SLOT(moreOptions()));
 
-     connect(ui->btnEditHosts,SIGNAL(clicked()),this,SLOT(hostEditor()));
-     connect(ui->btnEditUsers,SIGNAL(clicked()),this,SLOT(userEditor()));
-     connect(ui->cancelPB,SIGNAL(clicked()),this,SLOT(cancelEditor()));
-     connect(ui->okPB,SIGNAL(clicked()),this,SLOT(okEditor()));
+    connect(ui->btnEditHosts,SIGNAL(clicked()),this,SLOT(hostEditor()));
+    connect(ui->btnEditUsers,SIGNAL(clicked()),this,SLOT(userEditor()));
+    connect(ui->cancelPB,SIGNAL(clicked()),this,SLOT(cancelEditor()));
+    connect(ui->okPB,SIGNAL(clicked()),this,SLOT(okEditor()));
 
     connect(ui->btnConnect,SIGNAL(clicked()),this,SLOT(ssh()));
     connect(ui->btnSaveAsDefault,SIGNAL(clicked()),this,SLOT(saveAsDefault()));
@@ -130,19 +114,9 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
 
     m_config->setGroup(GroupGeneral);
     int count = ui->cmbHosts->count();
-    ui->cmbHosts->insertItem(count,m_config->readEntry(EntryLastHost));
-//    int def=KGlobalSettings::completionMode();
-//    config->setGroup("General");
-//    int mode=config->readNumEntry("HostCompletionMode",def);
-//    // compHost->setCompletionMode((KGlobalSettings::Completion)mode);
-//    hostCB->setCompletionMode((KGlobalSettings::Completion)mode);
+//     ui->cmbHosts->insertItem(count,m_config->readEntry(EntryLastHost));
 
-//    config->setGroup("General");
-//    mode=config->readNumEntry("UserCompletionMode",def);
-//    //compUser->setCompletionMode((KGlobalSettings::Completion)mode);
-//    userCB->setCompletionMode((KGlobalSettings::Completion)mode);
-
-     checkTextChanged(QString());
+    checkTextChanged(QString());
 
 }
 
@@ -214,12 +188,6 @@ void QtSSHUi::ssh()
 {
     m_config->setGroup("General");
     m_config->writeEntry("LastHost",ui->cmbHosts->currentText());  
-
-//    m_config->writeEntry("HostCompletionMode",compHost->completionMode());
-//    m_ config->writeEntry("UserCompletionMode",compUser->completionMode());
-
-//    compUser->addItem(userCB->currentText());
-//    compHost->addItem(hostCB->currentText());
 
 //    if(saveCB->isChecked())
 //        saveOptions(hostCB->currentText()+"-Options");
@@ -1346,55 +1314,67 @@ void QtSSHUi::userFor(const QString& host)
 
 void QtSSHUi::hostEditor()
 {
-    // ui->listEditor->reset();
-    //ui->listUserHostEditor->
+    ui->listUserHostEditor->clear();
+
+    ui->grbOptions->hide();
+    ui->frmHostUser->setTitle(tr("Hosts: "));
     ui->frmHostUser->show ();
+
 // userHostELB->clear();
 
 //userHostELB->listBox()->clear();
 //userHostELB->lineEdit()->clear();
 
-// uEditor=false;
-// hEditor=true;
+    ui->listUserHostEditor->insertItem(0, "192.168.1.111");
+    ui->listUserHostEditor->insertItem(1, "192.168.1.112");
+    ui->listUserHostEditor->insertItem(2, "192.168.1.113");
+
+    m_editor_is_user_mode = false;
+    m_editor_is_hosts_mode = true;
+
    //ui->listUserHostEditor->setTitle(i18n("Hosts:"));
 // userHostELB->insertStringList(compHost->items());
-// optionsGB->hide();
-// editorF->show();
 }
 
 
 void QtSSHUi::userEditor()
 {
-// userHostELB->clear();
+    ui->listUserHostEditor->clear();
+    ui->grbOptions->hide();
+    ui->frmHostUser->setTitle(tr("User list for %1:").arg(ui->cmbHosts->currentText()));
+    ui->frmHostUser->show ();
 
-//userHostELB->listBox()->clear();
-//userHostELB->lineEdit()->clear();
 
-// uEditor=true;
-// hEditor=false;
+    ui->listUserHostEditor->insertItem(0, "userone");
+    ui->listUserHostEditor->insertItem(1, "usertwo");
+    ui->listUserHostEditor->insertItem(2, "userthree");
+
+
+    m_editor_is_user_mode = true;
+    m_editor_is_hosts_mode = false;
+
 // QString host=hostCB->currentText();
-// userHostELB->setTitle(i18n("User list for %1:").arg(host));
+//  userHostELB->setTitle(i18n("User list for %1:").arg(ui->cmbHosts->itemText(ui->cmbHosts->currentIndex())));
 // userHostELB->insertStringList(compUser->items());
-// optionsGB->hide();
-    ui->frmHostUser->show();
 }
 
 void QtSSHUi::okEditor()
 {
+    if(m_editor_is_user_mode)     {
+        ui->cmbUserName->clear();
+//        userCB->clear();
+//        userCB->insertStringList(userHostELB->items());
+//        compUser->setItems(userHostELB->items());
+    }
 
-    //  if(uEditor)
-    // {
-    //  userCB->clear();
-    //  userCB->insertStringList(userHostELB->items());
-    //  compUser->setItems(userHostELB->items());
-    // }
-    // if(hEditor)
-    // {
-    //  hostCB->clear();
-    //  QStringList lista=userHostELB->items();
-    // hostCB->insertStringList(lista);
-    // compHost->setItems(lista);
-    // }
+    if(m_editor_is_hosts_mode)  {
+        ui->cmbHosts->clear();
+//        hostCB->clear();
+//        QStringList lista=userHostELB->items();
+//        hostCB->insertStringList(lista);
+//        compHost->setItems(lista);
+    }
+
     ui->frmHostUser->hide();
 
     //editorF->hide();

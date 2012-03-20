@@ -55,6 +55,22 @@ QString QtConfig::readEntry(const QString& key) const
     return data.toString();
 }
 
+void QtConfig::readEntry(const QString &key, QStringList& list)
+{
+    if (m_currentGroup.length())  {
+        m_settings->beginGroup(m_currentGroup);
+        int count = m_settings->beginReadArray(key);
+        for (int i = 0; i < count; ++i) {
+            m_settings->setArrayIndex(i);
+            QString host = m_settings->setValue(key);
+            qDebug () << host;
+            list.append(host);
+        }
+        m_settings->endArray();
+        m_settings->endGroup();
+        m_settings->sync();
+    }
+}
 
 void QtConfig::writeEntry(const QString &wk, const QStringList& list)
 {

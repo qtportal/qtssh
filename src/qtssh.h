@@ -79,8 +79,8 @@ private:
     QStringList m_hosts;
     bool m_opt;
     bool m_mopt;
-    bool uEditor;
-    bool hEditor;
+    bool m_editor_is_user_mode;
+    bool m_editor_is_hosts_mode;
     QApplication *app;
     QtConfig    *m_config;
     Ui::QtSSHDialog *ui;
