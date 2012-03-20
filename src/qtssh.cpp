@@ -1343,11 +1343,9 @@ void QtSSHUi::userEditor()
     ui->frmHostUser->setTitle(tr("User list for %1:").arg(ui->cmbHosts->currentText()));
     ui->frmHostUser->show ();
 
-
     ui->listUserHostEditor->insertItem(0, "userone");
     ui->listUserHostEditor->insertItem(1, "usertwo");
     ui->listUserHostEditor->insertItem(2, "userthree");
-
 
     m_editor_is_user_mode = true;
     m_editor_is_hosts_mode = false;
@@ -1357,18 +1355,36 @@ void QtSSHUi::userEditor()
 // userHostELB->insertStringList(compUser->items());
 }
 
+void QtSSHUi::deleteCurrent()
+{
+    int currentItem = ui->listUserHostEditor->currentRow();
+    if (currentItem!=-1)  {
+        delete ui->listUserHostEditor->item(currentItem);
+    }
+}
+
+void QtSSHUi::editCurrent()
+{
+    QListWidgetItem *item = ui->listUserHostEditor->currentItem();
+    if (item)  {
+        item->setFlags( item->flags() | Qt::ItemIsEditable );
+        ui->listUserHostEditor->editItem( item );
+    }
+}
+
 bool QtSSHUi::eventFilter(QObject *object, QEvent *event)
 {
     if (object == ui->listUserHostEditor && event->type() == QEvent::KeyPress) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
         if (keyEvent->key() == Qt::Key_Insert) {
             qDebug () << "insert event occur";
+            // insertNewItem ();
             return true;
         } else if (keyEvent->key() == Qt::Key_Delete)  {
-            qDebug () << "delete event occur";
+            deleteCurrent ();
             return true;
         } else if (keyEvent->key() == Qt::Key_F2)  {
-            qDebug () << "edit event (F2) occur";
+            editCurrent ();
             return true;
         } else
             return false;

@@ -76,6 +76,9 @@ private:
     void cancelEditor();
 
     void checkTextChanged (const QString&);
+private:
+    void deleteCurrent ();
+    void editCurrent ();
 
 private:
     QStringList m_hosts;
