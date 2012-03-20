@@ -87,7 +87,7 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
 
     ui->cmbHosts->setFocus();
     ui->cmbHosts->clearEditText();
-    // ui->cmbHosts->lineEdit()->installEventFilter( this );
+    ui->listUserHostEditor->installEventFilter( this );
 
     ui->cmbUserName->insertItem(0,"");
     ui->cmbHosts->insertItem(0,"");
@@ -1355,6 +1355,25 @@ void QtSSHUi::userEditor()
 // QString host=hostCB->currentText();
 //  userHostELB->setTitle(i18n("User list for %1:").arg(ui->cmbHosts->itemText(ui->cmbHosts->currentIndex())));
 // userHostELB->insertStringList(compUser->items());
+}
+
+bool QtSSHUi::eventFilter(QObject *object, QEvent *event)
+{
+    if (object == ui->listUserHostEditor && event->type() == QEvent::KeyPress) {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+        if (keyEvent->key() == Qt::Key_Insert) {
+            qDebug () << "insert event occur";
+            return true;
+        } else if (keyEvent->key() == Qt::Key_Delete)  {
+            qDebug () << "delete event occur";
+            return true;
+        } else if (keyEvent->key() == Qt::Key_F2)  {
+            qDebug () << "edit event (F2) occur";
+            return true;
+        } else
+            return false;
+    }
+    return false;
 }
 
 void QtSSHUi::okEditor()

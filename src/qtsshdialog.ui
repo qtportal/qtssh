@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>751</width>
-    <height>839</height>
+    <height>867</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -988,7 +988,11 @@ remote site is with something like&lt;br&gt; &lt;tt&gt;ssh -f host xterm&lt;/tt&
        </spacer>
       </item>
       <item row="0" column="0" rowspan="3">
-       <widget class="QListWidget" name="listUserHostEditor"/>
+       <widget class="QListWidget" name="listUserHostEditor">
+        <property name="spacing">
+         <number>3</number>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

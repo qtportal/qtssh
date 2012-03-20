@@ -56,6 +56,8 @@ private:
     //KCompletion *compUser;
    // KCompletion *compHost;
 
+    bool eventFilter(QObject *object, QEvent *event);
+
     void saveLists();
     void loadHosts();
     void saveOptions(QString group);
