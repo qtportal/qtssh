@@ -92,8 +92,6 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
     ui->cmbUserName->insertItem(0,"");
     ui->cmbHosts->insertItem(0,"");
 
-    ui->cmbHosts->insertItem(1,"192.168.1.1");
-
     loadHosts();
     loadOptions(GroupDefaultConfig);
 
@@ -113,8 +111,9 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
     connect(ui->cmbUserName,SIGNAL(editTextChanged(QString)), this, SLOT(checkTextChanged(QString)));
 
     m_config->setGroup(GroupGeneral);
-    int count = ui->cmbHosts->count();
-//     ui->cmbHosts->insertItem(count,m_config->readEntry(EntryLastHost));
+    QString lastHost = m_config->readEntry(EntryLastHost);
+    int index = ui->cmbHosts->findData(lastHost);
+    ui->cmbHosts->setCurrentIndex(index);
 
     checkTextChanged(QString());
 
@@ -207,10 +206,10 @@ void QtSSHUi::ssh()
 void QtSSHUi::loadHosts()
 {
     m_config->setGroup(GroupHostList);
-    //m_hosts=m_config->readListEntry(EntryHosts);
-    int count = ui->cmbHosts->count ();
-    if (count)
-        ui->cmbHosts->insertItems(count, m_hosts);
+    m_hosts.clear();
+    m_config->readEntry(EntryHosts, m_hosts);
+    if (m_hosts.count())
+        ui->cmbHosts->insertItems(1, m_hosts);
 }
 
 void QtSSHUi::saveAsDefault()

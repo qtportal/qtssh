@@ -62,7 +62,7 @@ void QtConfig::readEntry(const QString &key, QStringList& list)
         int count = m_settings->beginReadArray(key);
         for (int i = 0; i < count; ++i) {
             m_settings->setArrayIndex(i);
-            QString host = m_settings->setValue(key);
+            QString host = m_settings->value(key).toString();
             qDebug () << host;
             list.append(host);
         }

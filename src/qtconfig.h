@@ -33,6 +33,9 @@ public:
     void writeEntry (const QString&, const QString&);
     // Write group list
     void writeEntry (const QString&, const QStringList&);
+    // Read list of entrys from settings store.
+    void readEntry (const QString&, QStringList&);
+    // Read a single entry from settings store
     QString readEntry (const QString& key) const;
     // Set active group
     void setGroup (const QString&);
