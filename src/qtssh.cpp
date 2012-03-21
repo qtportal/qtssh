@@ -1364,6 +1364,7 @@ void QtSSHUi::currentItemChanged(QListWidgetItem* item)
         QString text = item->data(Qt::EditRole).toString();
         if (text.length()==0)  {
             item->setData(Qt::EditRole, m_item_text);
+            m_item_text.clear();
         }
     }
 }
@@ -1379,7 +1380,6 @@ void QtSSHUi::deleteCurrent()
 void QtSSHUi::editCurrent()
 {
     QListWidgetItem *item = ui->listUserHostEditor->currentItem();
-
     if (item)  {
         m_item_text = item->data(Qt::EditRole).toString();
         item->setFlags( item->flags() | Qt::ItemIsEditable );
@@ -1387,13 +1387,26 @@ void QtSSHUi::editCurrent()
     }
 }
 
+void QtSSHUi::insertNewItem()
+{
+    int currentItem = ui->listUserHostEditor->currentRow();
+    QListWidgetItem *item = NULL;
+    if (m_editor_is_user_mode)  {
+        item = new QListWidgetItem(tr("newuser"));
+    } else if (m_editor_is_hosts_mode)  {
+        item = new QListWidgetItem(tr("192.168.1.1"));
+    }
+    ui->listUserHostEditor->insertItem(currentItem, item);
+    ui->listUserHostEditor->setCurrentItem(item);
+    editCurrent();
+}
+
 bool QtSSHUi::eventFilter(QObject *object, QEvent *event)
 {
     if (object == ui->listUserHostEditor && event->type() == QEvent::KeyPress) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
         if (keyEvent->key() == Qt::Key_Insert) {
-            qDebug () << "insert event occur";
-            // insertNewItem ();
+            insertNewItem ();
             return true;
         } else if (keyEvent->key() == Qt::Key_Delete)  {
             deleteCurrent ();

@@ -83,6 +83,7 @@ private:
 private:
     void deleteCurrent ();
     void editCurrent ();
+    void insertNewItem ();
 
 private:
     QStringList m_hosts;
