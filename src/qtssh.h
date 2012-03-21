@@ -78,7 +78,7 @@ private:
     void cancelEditor();
 
     void checkTextChanged (const QString&);
-    void currentItemChanged(QListWidgetItem, QListWidgetItem);
+    void currentItemChanged(QListWidgetItem*);
 
 private:
     void deleteCurrent ();
@@ -93,6 +93,7 @@ private:
     QApplication *app;
     QtConfig    *m_config;
     Ui::QtSSHDialog *ui;
+    QString m_item_text;
 };
 
 #endif      // QTSSH_H

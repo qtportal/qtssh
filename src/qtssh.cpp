@@ -109,8 +109,8 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
     connect(ui->btnQuit,SIGNAL(clicked()),qApp,SLOT(quit()));
     connect(ui->cmbHosts,SIGNAL(editTextChanged(QString)), this, SLOT(checkTextChanged(QString)));
     connect(ui->cmbUserName,SIGNAL(editTextChanged(QString)), this, SLOT(checkTextChanged(QString)));
-    connect(ui->listUserHostEditor->currentItemChanged(QListWidgetItem, QListWidgetItem)), this,
-            SLOT(currentItemChanged(QListWidgetItem, QListWidgetItem));
+    connect(ui->listUserHostEditor, SIGNAL(itemChanged(QListWidgetItem*)), this,
+            SLOT(currentItemChanged(QListWidgetItem*)));
 
     m_config->setGroup(GroupGeneral);
     QString lastHost = m_config->readEntry(EntryLastHost);
@@ -945,6 +945,7 @@ void QtSSHUi::saveOptions(QString group)
 bool QtSSHUi::loadOptions(QString group)
 {
 
+    return false;
 // bool setFlag;
 // bool ret=false;
 // config->setGroup(group);
@@ -1357,9 +1358,14 @@ void QtSSHUi::userEditor()
 // userHostELB->insertStringList(compUser->items());
 }
 
-void QtSSHUi::currentItemChanged(QListWidgetItem, QListWidgetItem)
+void QtSSHUi::currentItemChanged(QListWidgetItem* item)
 {
-
+    if (item)  {
+        QString text = item->data(Qt::EditRole).toString();
+        if (text.length()==0)  {
+            item->setData(Qt::EditRole, m_item_text);
+        }
+    }
 }
 
 void QtSSHUi::deleteCurrent()
@@ -1373,7 +1379,9 @@ void QtSSHUi::deleteCurrent()
 void QtSSHUi::editCurrent()
 {
     QListWidgetItem *item = ui->listUserHostEditor->currentItem();
+
     if (item)  {
+        m_item_text = item->data(Qt::EditRole).toString();
         item->setFlags( item->flags() | Qt::ItemIsEditable );
         ui->listUserHostEditor->editItem( item );
     }
