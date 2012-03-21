@@ -36,6 +36,8 @@ namespace Ui  {
     class QtSSHDialog;
 }
 
+class QListWidgetItem;
+
 class QtSSHUi : public QDialog
 {
   Q_OBJECT 
@@ -76,6 +78,8 @@ private:
     void cancelEditor();
 
     void checkTextChanged (const QString&);
+    void currentItemChanged(QListWidgetItem, QListWidgetItem);
+
 private:
     void deleteCurrent ();
     void editCurrent ();

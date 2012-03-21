@@ -109,6 +109,8 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
     connect(ui->btnQuit,SIGNAL(clicked()),qApp,SLOT(quit()));
     connect(ui->cmbHosts,SIGNAL(editTextChanged(QString)), this, SLOT(checkTextChanged(QString)));
     connect(ui->cmbUserName,SIGNAL(editTextChanged(QString)), this, SLOT(checkTextChanged(QString)));
+    connect(ui->listUserHostEditor->currentItemChanged(QListWidgetItem, QListWidgetItem)), this,
+            SLOT(currentItemChanged(QListWidgetItem, QListWidgetItem));
 
     m_config->setGroup(GroupGeneral);
     QString lastHost = m_config->readEntry(EntryLastHost);
@@ -1353,6 +1355,11 @@ void QtSSHUi::userEditor()
 // QString host=hostCB->currentText();
 //  userHostELB->setTitle(i18n("User list for %1:").arg(ui->cmbHosts->itemText(ui->cmbHosts->currentIndex())));
 // userHostELB->insertStringList(compUser->items());
+}
+
+void QtSSHUi::currentItemChanged(QListWidgetItem, QListWidgetItem)
+{
+
 }
 
 void QtSSHUi::deleteCurrent()
