@@ -1324,8 +1324,7 @@ void QtSSHUi::hostEditor()
 
 // userHostELB->clear();
 
-//userHostELB->listBox()->clear();
-//userHostELB->lineEdit()->clear();
+    ui->cmbHosts->itemData()
 
     ui->listUserHostEditor->insertItem(0, "192.168.1.111");
     ui->listUserHostEditor->insertItem(1, "192.168.1.112");
@@ -1345,10 +1344,6 @@ void QtSSHUi::userEditor()
     ui->grbOptions->hide();
     ui->frmHostUser->setTitle(tr("User list for %1:").arg(ui->cmbHosts->currentText()));
     ui->frmHostUser->show ();
-
-    ui->listUserHostEditor->insertItem(0, "userone");
-    ui->listUserHostEditor->insertItem(1, "usertwo");
-    ui->listUserHostEditor->insertItem(2, "userthree");
 
     m_editor_is_user_mode = true;
     m_editor_is_hosts_mode = false;
@@ -1422,42 +1417,34 @@ bool QtSSHUi::eventFilter(QObject *object, QEvent *event)
 
 void QtSSHUi::okEditor()
 {
+    ui->frmHostUser->hide();
+    QList<QListWidgetItem *> items =
+          ui->listUserHostEditor->findItems(QString("*"),
+          Qt::MatchWrap | Qt::MatchWildcard);
+
+    QList<QString> list;
+    foreach(QListWidgetItem *item, items)
+        list.append(item->text());
+
     if(m_editor_is_user_mode)     {
         ui->cmbUserName->clear();
-//        userCB->clear();
-//        userCB->insertStringList(userHostELB->items());
-//        compUser->setItems(userHostELB->items());
+        ui->cmbUserName->insertItems(0,list);
     }
-
     if(m_editor_is_hosts_mode)  {
         ui->cmbHosts->clear();
-//        hostCB->clear();
-//        QStringList lista=userHostELB->items();
-//        hostCB->insertStringList(lista);
-//        compHost->setItems(lista);
+        ui->cmbHosts->insertItems(0,list);
     }
+    ui->listUserHostEditor->clear();
+    m_editor_is_user_mode=false;
+    m_editor_is_hosts_mode=false;
 
-    ui->frmHostUser->hide();
-
-    //editorF->hide();
-
-    //userHostELB->listBox()->clear();
-    //userHostELB->lineEdit()->clear();
-    // uEditor=false;
-    // hEditor=false;
     // config->sync();
 }
 
 void QtSSHUi::cancelEditor()
 {
-// editorF->hide();
- ui->frmHostUser->hide();
-
-    //// userHostELB->clear();
-
-//userHostELB->listBox()->clear();
-//userHostELB->lineEdit()->clear();
-
-// uEditor=false;
-// hEditor=false;
+     ui->frmHostUser->hide();
+     ui->listUserHostEditor->clear();
+     m_editor_is_user_mode = false;
+     m_editor_is_hosts_mode =  false;
 }
