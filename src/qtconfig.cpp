@@ -22,7 +22,7 @@
 QtConfig::QtConfig()
 {
     m_settings = new QSettings("qtssh.ini", QSettings::IniFormat );
-    // qDebug () << m_settings->fileName();
+    qDebug () << m_settings->fileName();
     m_currentGroup = "";
 }
 
@@ -59,11 +59,12 @@ void QtConfig::readEntry(const QString &key, QStringList& list)
 {
     if (m_currentGroup.length())  {
         m_settings->beginGroup(m_currentGroup);
+        qDebug () << "cg" << m_currentGroup;
         int count = m_settings->beginReadArray(key);
+        qDebug () << count << "key " << key;
         for (int i = 0; i < count; ++i) {
             m_settings->setArrayIndex(i);
             QString host = m_settings->value(key).toString();
-            qDebug () << host;
             list.append(host);
         }
         m_settings->endArray();

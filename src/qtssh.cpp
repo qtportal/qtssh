@@ -112,6 +112,7 @@ QtSSHUi::QtSSHUi(QWidget *parent) : QDialog(parent), ui(new Ui::QtSSHDialog)
     connect(ui->listUserHostEditor, SIGNAL(itemChanged(QListWidgetItem*)), this,
             SLOT(currentItemChanged(QListWidgetItem*)));
 
+    connect(ui->cmbHosts, SIGNAL(currentIndexChanged(QString)), this, SLOT(userFor(QString)));
     m_config->setGroup(GroupGeneral);
     QString lastHost = m_config->readEntry(EntryLastHost);
     int index = ui->cmbHosts->findData(lastHost);
@@ -169,11 +170,11 @@ void QtSSHUi::moreOptions()
         ui->btnMore->setText(tr("More.."));
         ui->moreF->hide();
       }
-
  }
 
 void QtSSHUi::checkTextChanged(const QString &)
 {
+    qDebug()<< "checktetx";
     bool ok = !ui->cmbHosts->currentText().isEmpty()
               && !ui->cmbUserName->currentText().isEmpty();
     ui->btnConnect->setEnabled(ok);
@@ -207,11 +208,15 @@ void QtSSHUi::ssh()
 
 void QtSSHUi::loadHosts()
 {
-    m_config->setGroup(GroupHostList);
+    qDebug() << "loadHost";
     m_hosts.clear();
+    m_config->setGroup(GroupHostList);
     m_config->readEntry(EntryHosts, m_hosts);
-    if (m_hosts.count())
-        ui->cmbHosts->insertItems(1, m_hosts);
+    if (m_hosts.count())   {
+        ui->cmbHosts->clear();
+        ui->cmbHosts->addItems(m_hosts);
+        ui->cmbHosts->setCurrentIndex(0);
+    }
 }
 
 void QtSSHUi::saveAsDefault()
@@ -461,21 +466,37 @@ return ret;
 
 void QtSSHUi::saveLists()
 {
-    QStringList hostData;
+    QStringList data;
+
     int count = ui->cmbHosts->count();
     for (int i =0; i < count; i++)   {
-        hostData.append(ui->cmbHosts->itemText(i));
+        QString host = ui->cmbHosts->itemText(i);
+        if (host.length())  {
+            data.append(host);
+        }
     }
 
     m_config->setGroup(GroupHostList);
-    // m_config->writeEntry("Host",ui->cmbHosts->itemData());
+    m_config->writeEntry(EntryHosts, data);
+
+    data.clear();
+
+    count = ui->cmbUserName->count();
+    for (int i =0; i < count; i++)   {
+        QString user = ui->cmbUserName->itemText(i);
+        if (user.length())  {
+            data.append(user);
+        }
+    }
+
     m_config->setGroup(ui->cmbHosts->currentText()+"-User List");
-    // m_config->writeEntry("User",compUser->items());
+    m_config->writeEntry(EntryUserList, data);
 }
 
 
 void QtSSHUi::saveOptions(QString group)
 {
+    qDebug () << "saveOptions : groups" << group;
 
 // bool setFlag;
 // bool ret=false;
@@ -942,7 +963,7 @@ void QtSSHUi::saveOptions(QString group)
 }
 
 
-bool QtSSHUi::loadOptions(QString group)
+bool QtSSHUi::loadOptions(QString)
 {
 
     return false;
@@ -1266,33 +1287,11 @@ x  config->writeEntry("FLE",FLE->text());
 void QtSSHUi::userFor(const QString& host)
 {
     ui->cmbUserName->clear();
-//  compUser->clear();
-
-//  config->setGroup(host+"-User List");
-
-//  hosts=config->readListEntry("User");
-//  compUser->setItems(hosts);
-//  userCB->insertStringList(hosts);
-
-/*
-
- QString userString("User%1");
- QString tmpUser;
- unsigned int un,i;
-
-  userCB->clear();
-  compUser->clear();
-  config->setGroup(host+"-User List");
-  un=config->readNumEntry("NumUser",0);
-  for(i=0;i<un;i++)
-   {
-      tmpUser = config->readEntry(userString.arg(i+1));
-      warning(tmpUser);
-      userCB->insertItem(tmpUser);
-    //  compUser->addItem(tmpUser);
-      userCB->completionObject()->addItem(tmpUser);
-}
-*/
+    qDebug() << host;
+    m_config->setGroup(host+"-User List");
+    QStringList users;
+    m_config->readEntry(EntryUserList, users);
+    ui->cmbUserName->insertItems(0,users);
 
 //  userCB->setEditText(config->readEntry("LastUsed",""));
 
@@ -1322,21 +1321,15 @@ void QtSSHUi::hostEditor()
     ui->frmHostUser->setTitle(tr("Hosts: "));
     ui->frmHostUser->show ();
 
-// userHostELB->clear();
-
-    ui->cmbHosts->itemData()
-
-    ui->listUserHostEditor->insertItem(0, "192.168.1.111");
-    ui->listUserHostEditor->insertItem(1, "192.168.1.112");
-    ui->listUserHostEditor->insertItem(2, "192.168.1.113");
-
+    int count = ui->cmbHosts->count();
+    for (int i=0; i < count; i++ ) {
+        QString hostitem = ui->cmbHosts->itemText(i);
+        if (hostitem.length())
+            ui->listUserHostEditor->insertItem(i, hostitem);
+    }
     m_editor_is_user_mode = false;
     m_editor_is_hosts_mode = true;
-
-   //ui->listUserHostEditor->setTitle(i18n("Hosts:"));
-// userHostELB->insertStringList(compHost->items());
 }
-
 
 void QtSSHUi::userEditor()
 {
@@ -1345,12 +1338,15 @@ void QtSSHUi::userEditor()
     ui->frmHostUser->setTitle(tr("User list for %1:").arg(ui->cmbHosts->currentText()));
     ui->frmHostUser->show ();
 
+    int count = ui->cmbUserName->count();
+    for (int i=0; i < count; i++ )  {
+        QString useritem = ui->cmbUserName->itemText(i);
+        if (useritem.length())
+            ui->listUserHostEditor->insertItem(i, useritem);
+    }
+
     m_editor_is_user_mode = true;
     m_editor_is_hosts_mode = false;
-
-// QString host=hostCB->currentText();
-//  userHostELB->setTitle(i18n("User list for %1:").arg(ui->cmbHosts->itemText(ui->cmbHosts->currentIndex())));
-// userHostELB->insertStringList(compUser->items());
 }
 
 void QtSSHUi::currentItemChanged(QListWidgetItem* item)
@@ -1438,7 +1434,7 @@ void QtSSHUi::okEditor()
     m_editor_is_user_mode=false;
     m_editor_is_hosts_mode=false;
 
-    // config->sync();
+    saveLists();
 }
 
 void QtSSHUi::cancelEditor()
